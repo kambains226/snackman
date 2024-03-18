@@ -101,5 +101,25 @@ setInterval(function() {
     }
 }, 10);
 
+
+
+// events listeners 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
+
+
+
+
+// start button 
+
+function startButton(event) {
+    let start = document.querySelector('.start')
+    // if the start div is clicked or if a child of the start div is clicked it will dissapear
+    if (start.contains(event.target)) {
+        start.style.display = 'none';
+    }
+
+}
+
+
+document.addEventListener('click', startButton)
