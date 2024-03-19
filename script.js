@@ -48,30 +48,9 @@ for (let y of maze) {
     }
 }
 
-//Player movement
-function keyUp(event) {
-    if (event.key === 'ArrowUp') {
-        upPressed = false;
-    } else if (event.key === 'ArrowDown') {
-        downPressed = false;
-    } else if (event.key === 'ArrowLeft') {
-        leftPressed = false;
-    } else if (event.key === 'ArrowRight') {
-        rightPressed = false;
-    }
-}
 
-function keyDown(event) {
-    if (event.key === 'ArrowUp') {
-        upPressed = true;
-    } else if (event.key === 'ArrowDown') {
-        downPressed = true;
-    } else if (event.key === 'ArrowLeft') {
-        leftPressed = true;
-    } else if (event.key === 'ArrowRight') {
-        rightPressed = true;
-    }
-}
+
+
 
 const player = document.querySelector('#player');
 const playerMouth = player.querySelector('.mouth');
@@ -79,33 +58,38 @@ let playerTop = 0;
 let playerLeft = 0;
 
 setInterval(function() {
-    if(downPressed) {
+    //create a boundary on the player id
+    let playerbounder = document.querySelector('#player')
+    let prect = playerbounder.getBoundingClientRect();
+    
+    // need to make this work it make it so i can only go down and left not up or right 
+    let wall = document.querySelector('.wall');
+    let wrect = wall.getBoundingClientRect();
+    console.log(prect, wrect);
+
+    if(downPressed && prect.bottom >= wrect.bottom) {
         playerTop++;
         player.style.top = playerTop + 'px';
         playerMouth.classList = 'down';
     }
-    else if(upPressed) {
+    else if(upPressed && prect.top <= wrect.top) {
         playerTop--;
         player.style.top = playerTop + 'px';
         playerMouth.classList = 'up';
     }
-    else if(leftPressed) {
+    else if(leftPressed && prect.left <= wrect.left) {
         playerLeft--;
         player.style.left = playerLeft + 'px';
         playerMouth.classList = 'left';
     }
-    else if(rightPressed) {
+    else if(rightPressed && prect.right <= wrect.right) {
         playerLeft++;
         player.style.left = playerLeft + 'px';
         playerMouth.classList = 'right';
     }
-}, 10);
+}, 7);
 
 
-
-// events listeners 
-document.addEventListener('keydown', keyDown);
-document.addEventListener('keyup', keyUp);
 
 
 
@@ -117,8 +101,38 @@ function startButton(event) {
     // if the start div is clicked or if a child of the start div is clicked it will dissapear
     if (start.contains(event.target)) {
         start.style.display = 'none';
-    }
+        //Player movement
+        function keyUp(event) {
+            // only runs if the player starts the game 
+            if (event.key === 'ArrowUp') {
+                upPressed = false;
+            } else if (event.key === 'ArrowDown') {
+                downPressed = false;
+            } else if (event.key === 'ArrowLeft') {
+                leftPressed = false;
+            } else if (event.key === 'ArrowRight') {
+                rightPressed = false;
+            }
+        }
 
+        function keyDown(event) {
+            if (event.key === 'ArrowUp') {
+                upPressed = true;
+            } else if (event.key === 'ArrowDown') {
+                downPressed = true;
+            } else if (event.key === 'ArrowLeft') {
+                leftPressed = true;
+            } else if (event.key === 'ArrowRight') {
+                rightPressed = true;
+            }
+        }
+        
+        // events listeners 
+        document.addEventListener('keydown', keyDown);
+        document.addEventListener('keyup', keyUp);
+
+    }
+    
 }
 
 
