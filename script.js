@@ -59,30 +59,37 @@ let playerLeft = 0;
 
 setInterval(function() {
     //create a boundary on the player id
-    let playerbounder = document.querySelector('#player')
+    let playerbounder = document.querySelector('.block#player')
     let prect = playerbounder.getBoundingClientRect();
     
     // need to make this work it make it so i can only go down and left not up or right 
-    let wall = document.querySelector('.wall');
-    let wrect = wall.getBoundingClientRect();
-    console.log(prect, wrect);
+    let wall = document.querySelectorAll('.block.wall');
+    for (let i of wall) {
+        // loops through all the i wall classes and creats a bounder for them and height and width
+        var wrect = i.getBoundingClientRect();
+        var wheight =i.offsetHeight;
+        var wwidth = i.offsetWidth;
+    }
+    
 
-    if(downPressed && prect.bottom >= wrect.bottom) {
+    if(downPressed && prect.bottom < wrect.top) {
         playerTop++;
         player.style.top = playerTop + 'px';
         playerMouth.classList = 'down';
     }
-    else if(upPressed && prect.top <= wrect.top) {
+    // i need to fix up and left as they arent working
+    
+    else if(upPressed && prect.top > wrect.bottom) {
         playerTop--;
         player.style.top = playerTop + 'px';
         playerMouth.classList = 'up';
     }
-    else if(leftPressed && prect.left <= wrect.left) {
+    else if(leftPressed && prect.left > wrect.right ) {
         playerLeft--;
         player.style.left = playerLeft + 'px';
         playerMouth.classList = 'left';
     }
-    else if(rightPressed && prect.right <= wrect.right) {
+    else if(rightPressed && prect.right < wrect.left ) {
         playerLeft++;
         player.style.left = playerLeft + 'px';
         playerMouth.classList = 'right';
