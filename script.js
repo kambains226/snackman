@@ -57,44 +57,72 @@ const playerMouth = player.querySelector('.mouth');
 let playerTop = 0;
 let playerLeft = 0;
 
-setInterval(function() {
+let interval = setInterval(function() {
+    let collision = false;
+    
     //create a boundary on the player id
     let playerbounder = document.querySelector('.block#player')
     let prect = playerbounder.getBoundingClientRect();
     
     // need to make this work it make it so i can only go down and left not up or right 
-    let wall = document.querySelectorAll('.block.wall');
-    for (let i of wall) {
-        // loops through all the i wall classes and creats a bounder for them and height and width
-        var wrect = i.getBoundingClientRect();
-        var wheight =i.offsetHeight;
-        var wwidth = i.offsetWidth;
-    }
+    let walls = document.querySelectorAll('.block.wall');
+    
     
 
-    if(downPressed && prect.bottom < wrect.top) {
-        playerTop++;
-        player.style.top = playerTop + 'px';
-        playerMouth.classList = 'down';
-    }
-    // i need to fix up and left as they arent working
+    walls.forEach(wall =>{
+        let wrect = wall.getBoundingClientRect();
+        
+
+        if (prect.bottom > wrect.top && prect.top < wrect.bottom 
+            &&prect.right > wrect.left && prect.left < wrect.right) {
+                collision = true;
+                console.log('player', prect.bottom + ' ' + prect.top + ' ' + prect.left + ' ' + prect.right);
+
+                console.log('wall' ,wrect.bottom + ' ' + wrect.top + ' ' + wrect.left + ' ' + wrect.right);
+                clearInterval(interval);
+                
+                
+            }
     
-    else if(upPressed && prect.top > wrect.bottom) {
-        playerTop--;
-        player.style.top = playerTop + 'px';
-        playerMouth.classList = 'up';
-    }
-    else if(leftPressed && prect.left > wrect.right ) {
-        playerLeft--;
-        player.style.left = playerLeft + 'px';
-        playerMouth.classList = 'left';
-    }
-    else if(rightPressed && prect.right < wrect.left ) {
-        playerLeft++;
-        player.style.left = playerLeft + 'px';
-        playerMouth.classList = 'right';
-    }
-}, 7);
+        
+            
+    });
+    
+   
+
+    if(downPressed && !collision) {
+        
+            playerTop++;
+            player.style.top = playerTop + 'px';
+            playerMouth.classList = 'down';
+        }
+        
+    
+    // i need to fix up and left as they arent working
+
+    else if(upPressed && !collision) {
+        
+            playerTop--;
+            player.style.top = playerTop + 'px';
+            playerMouth.classList = 'up';
+        }
+    
+    else if(leftPressed && !collision ) {
+        
+            playerLeft--;
+            player.style.left = playerLeft + 'px';
+            playerMouth.classList = 'left';
+        }
+    
+    else if(rightPressed && !collision  ) {
+        
+            
+            playerLeft++;
+            player.style.left = playerLeft + 'px';
+            playerMouth.classList = 'right';
+            }
+    
+}, 10);
 
 
 
@@ -110,6 +138,7 @@ function startButton(event) {
         start.style.display = 'none';
         //Player movement
         function keyUp(event) {
+            
             // only runs if the player starts the game 
             if (event.key === 'ArrowUp') {
                 upPressed = false;
