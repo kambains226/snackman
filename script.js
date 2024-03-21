@@ -97,9 +97,7 @@ let interval = setInterval(function() {
             playerMouth.classList = 'down';
         }
         
-    
-    // i need to fix up and left as they arent working
-
+    // i need to fix a problem with not being able to move when colliding 
     else if(upPressed && !collision) {
         
             playerTop--;
