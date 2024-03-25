@@ -58,20 +58,49 @@ let playerTop = 0;
 let playerLeft = 0;
 
 let interval = setInterval(function() {
-    let collision = false;
+    
     
     //create a boundary on the player id
     let playerbounder = document.querySelector('.block#player')
-    let prect = playerbounder.getBoundingClientRect();
-    
+    // let prect = playerbounder.getBoundingClientRect();
+    let playerHeight = prect.height;
+    let playerWidth = prect.width;
+
     // need to make this work it make it so i can only go down and left not up or right 
     let walls = document.querySelectorAll('.block.wall');
     
     
+    
 
+    let potentialLeft, potentialTop;
+
+    if(downPressed) {
+
+        potentialTop = playerTop + 1;
+        potentialLeft = playerLeft;
+
+
+    }
+    else if(upPressed) {
+        potentialTop = playerTop - 1;
+        potentialLeft = playerLeft;
+    }
+    else if(leftPressed) {
+        potentialTop = playerTop;
+        potentialLeft = playerLeft -1;
+
+
+    }
+    else if (rightPressed) {
+        potentialTop = playerTop;
+        potentialLeft = playerLeft + 1;
+    }
+
+
+    let collision = false;
     walls.forEach(wall =>{
         let wrect = wall.getBoundingClientRect();
-        
+        let prect = {top: potentialTop, bottom: potentialTop +playerHeight, left: potentialLeft , right: potentialLeft + playerWidth}
 
         if (prect.bottom > wrect.top && prect.top < wrect.bottom 
             &&prect.right > wrect.left && prect.left < wrect.right) {
@@ -79,47 +108,50 @@ let interval = setInterval(function() {
                 console.log('player', prect.bottom + ' ' + prect.top + ' ' + prect.left + ' ' + prect.right);
 
                 console.log('wall' ,wrect.bottom + ' ' + wrect.top + ' ' + wrect.left + ' ' + wrect.right);
-                clearInterval(interval);
+                // clearInterval(interval);
                 
                 
             }
+       
     
-        
             
     });
     
-   
 
-    if(downPressed && !collision) {
-        
-            playerTop++;
-            player.style.top = playerTop + 'px';
-            playerMouth.classList = 'down';
-        }
-        
-    // i need to fix a problem with not being able to move when colliding 
-    else if(upPressed && !collision) {
-        
-            playerTop--;
-            player.style.top = playerTop + 'px';
-            playerMouth.classList = 'up';
-        }
-    
-    else if(leftPressed && !collision ) {
-        
-            playerLeft--;
-            player.style.left = playerLeft + 'px';
-            playerMouth.classList = 'left';
-        }
-    
-    else if(rightPressed && !collision  ) {
-        
+   
+    console.log(collision);
+    if (!collision){
+
+        if(downPressed  ) {
             
-            playerLeft++;
-            player.style.left = playerLeft + 'px';
-            playerMouth.classList = 'right';
+                playerTop++;
+                player.style.top = playerTop + 'px';
+                playerMouth.classList = 'down';
             }
-    
+            
+        // i need to fix a problem with not being able to move when colliding 
+        else if(upPressed ) {
+            
+                playerTop--;
+                player.style.top = playerTop + 'px';
+                playerMouth.classList = 'up';
+            }
+        
+        else if(leftPressed ) {
+            
+                playerLeft--;
+                player.style.left = playerLeft + 'px';
+                playerMouth.classList = 'left';
+            }
+        
+        else if(rightPressed ) {
+            
+                
+                playerLeft++;
+                player.style.left = playerLeft + 'px';
+                playerMouth.classList = 'right';
+                }
+            }
 }, 10);
 
 
