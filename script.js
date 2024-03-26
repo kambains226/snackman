@@ -62,7 +62,7 @@ let interval = setInterval(function() {
     
     //create a boundary on the player id
     let playerbounder = document.querySelector('.block#player')
-    // let prect = playerbounder.getBoundingClientRect();
+    let prect = playerbounder.getBoundingClientRect();
     let playerHeight = prect.height;
     let playerWidth = prect.width;
 
@@ -108,7 +108,7 @@ let interval = setInterval(function() {
                 console.log('player', prect.bottom + ' ' + prect.top + ' ' + prect.left + ' ' + prect.right);
 
                 console.log('wall' ,wrect.bottom + ' ' + wrect.top + ' ' + wrect.left + ' ' + wrect.right);
-                // clearInterval(interval);
+                clearInterval(interval);
                 
                 
             }
@@ -116,6 +116,13 @@ let interval = setInterval(function() {
     
             
     });
+
+if (!collision){
+    playerTop = potentialTop
+    playerLeft = potentialLeft
+    player.style.top = playerTop + 'px';
+    player.style.left = playerLeft + 'px';
+}
     
 
    
