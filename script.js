@@ -4,7 +4,8 @@ let leftPressed = false;
 let rightPressed = false;
 
 const main = document.querySelector('main');
-
+// const player_select = document.querySelector('#player');
+// const player_bounder = player_select.getBoundingClientRect();
 //Player = 2, Wall = 1, Enemy = 3, Point = 0
 let maze = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -68,100 +69,48 @@ let interval = setInterval(function() {
 
     // need to make this work it make it so i can only go down and left not up or right 
     let walls = document.querySelectorAll('.block.wall');
+    // i need to start collision again 
     
     
+    let potentialTop = playerTop;
+    let potentialLeft = playerLeft;
+
     
-
-    let potentialLeft, potentialTop;
-
-    if(downPressed) {
-
-        potentialTop = playerTop + 1;
-        potentialLeft = playerLeft;
-
-
-    }
-    else if(upPressed) {
-        potentialTop = playerTop - 1;
-        potentialLeft = playerLeft;
-    }
-    else if(leftPressed) {
-        potentialTop = playerTop;
-        potentialLeft = playerLeft -1;
-
-
-    }
-    else if (rightPressed) {
-        potentialTop = playerTop;
-        potentialLeft = playerLeft + 1;
-    }
-
-
     let collision = false;
-    walls.forEach(wall =>{
+    walls.forEach(wall => {
         let wrect = wall.getBoundingClientRect();
-        let prect = {top: potentialTop, bottom: potentialTop +playerHeight, left: potentialLeft , right: potentialLeft + playerWidth}
-
-        if (prect.bottom > wrect.top && prect.top < wrect.bottom 
-            &&prect.right > wrect.left && prect.left < wrect.right) {
-                collision = true;
-                console.log('player', prect.bottom + ' ' + prect.top + ' ' + prect.left + ' ' + prect.right);
-
-                console.log('wall' ,wrect.bottom + ' ' + wrect.top + ' ' + wrect.left + ' ' + wrect.right);
-                clearInterval(interval);
-                
-                
-            }
-       
-    
-            
+        
     });
 
-if (!collision){
-    playerTop = potentialTop
-    playerLeft = potentialLeft
-    player.style.top = playerTop + 'px';
-    player.style.left = playerLeft + 'px';
-}
+    if (!collision) {
+        // playerTop = potentialTop;
+        // playerLeft = potentialLeft;
+        // player.style.top = playerTop + 'px';
+        // player.style.left = playerLeft + 'px';
+        if (upPressed) {
+            playerMouth.classList = 'up';
+        }
+        if (downPressed) {
+            playerMouth.classList = 'down';
+        }
+        if (leftPressed) {
+            playerMouth.classList = 'left';
+        }
+        if (rightPressed) {
+            playerMouth.classList = 'right';
+        }
     
+    }
+    }, 10);
 
-   
-    console.log(collision);
-    if (!collision){
-
-        if(downPressed  ) {
-            
-                playerTop++;
-                player.style.top = playerTop + 'px';
-                playerMouth.classList = 'down';
-            }
-            
-        // i need to fix a problem with not being able to move when colliding 
-        else if(upPressed ) {
-            
-                playerTop--;
-                player.style.top = playerTop + 'px';
-                playerMouth.classList = 'up';
-            }
-        
-        else if(leftPressed ) {
-            
-                playerLeft--;
-                player.style.left = playerLeft + 'px';
-                playerMouth.classList = 'left';
-            }
-        
-        else if(rightPressed ) {
-            
-                
-                playerLeft++;
-                player.style.left = playerLeft + 'px';
-                playerMouth.classList = 'right';
-                }
-            }
-}, 10);
-
-
+    function isWallAt(top, left) {
+        if (top >= 0 && top < maze.length && left >= 0 && left < maze[0].length) {
+            // Return true if there's a wall at the specified position
+            return maze[top][left] === 1;
+        }
+        // Return false if the specified position is outside the bounds of the maze array
+        return false;
+    }
 
 
 
