@@ -48,7 +48,35 @@ for (let y of maze) {
     }
 }
 
+// point check 
+function pointCheck(){
+    const postion = player.getBoundingClientRect();
+    const point1= document.querySelectorAll('.point')[0];
+    const point2= document.querySelectorAll('.point')[1];
+    const point3= document.querySelectorAll('.point')[2];
+    const point4= document.querySelectorAll('.point')[3];
+    const point5= document.querySelectorAll('.point')[4];
 
+    const p1Postion = point1.getBoundingClientRect();
+    const p2Postion = point2.getBoundingClientRect();
+    const p3Postion = point3.getBoundingClientRect();
+    const p4Postion = point4.getBoundingClientRect();
+    const p5Postion = point5.getBoundingClientRect();
+
+
+    if (postion.right > p1Postion.left && postion.left < p1Postion.right && postion.bottom > p1Postion.top && postion.top < p1Postion.bottom){
+        point1.style.display = 'none';
+    }
+    if(postion.right > p2Postion.left && postion.left < p2Postion.right && postion.bottom > p2Postion.top && postion.top < p2Postion.bottom){
+        point2.style.display = 'none';
+    }
+    if(postion.right > p3Postion.left && postion.left < p3Postion.right && postion.bottom > p3Postion.top && postion.top < p3Postion.bottom){
+        point3.style.display = 'none';
+    }
+    if (postion.right > p4Postion.left && postion.left < p4Postion.right && postion.bottom > p4Postion.top && postion.top < p4Postion.bottom){
+        point4.style.display = 'none';
+    }
+}
 
 
 
@@ -59,106 +87,71 @@ let playerLeft = 0;
 
 let interval = setInterval(function() {
     
-    
-    //create a boundary on the player id
-    let playerbounder = document.querySelector('.block#player')
-    let prect = playerbounder.getBoundingClientRect();
-    let playerHeight = prect.height;
-    let playerWidth = prect.width;
-
-    // need to make this work it make it so i can only go down and left not up or right 
-    let walls = document.querySelectorAll('.block.wall');
-    
-    
-    
-
-    let potentialLeft, potentialTop;
-
-    if(downPressed) {
-
-        potentialTop = playerTop + 1;
-        potentialLeft = playerLeft;
+    pointCheck();
 
 
-    }
-    else if(upPressed) {
-        potentialTop = playerTop - 1;
-        potentialLeft = playerLeft;
-    }
-    else if(leftPressed) {
-        potentialTop = playerTop;
-        potentialLeft = playerLeft -1;
-
-
-    }
-    else if (rightPressed) {
-        potentialTop = playerTop;
-        potentialLeft = playerLeft + 1;
-    }
-
-
-    let collision = false;
-    walls.forEach(wall =>{
-        let wrect = wall.getBoundingClientRect();
-        let prect = {top: potentialTop, bottom: potentialTop +playerHeight, left: potentialLeft , right: potentialLeft + playerWidth}
-
-        if (prect.bottom > wrect.top && prect.top < wrect.bottom 
-            &&prect.right > wrect.left && prect.left < wrect.right) {
-                collision = true;
-                console.log('player', prect.bottom + ' ' + prect.top + ' ' + prect.left + ' ' + prect.right);
-
-                console.log('wall' ,wrect.bottom + ' ' + wrect.top + ' ' + wrect.left + ' ' + wrect.right);
-                clearInterval(interval);
-                
-                
-            }
-       
-    
+    if(downPressed  ) {
+            let postion = player.getBoundingClientRect();
+            let new_bottom = postion.bottom + 1;
             
-    });
-
-if (!collision){
-    playerTop = potentialTop
-    playerLeft = potentialLeft
-    player.style.top = playerTop + 'px';
-    player.style.left = playerLeft + 'px';
-}
-    
-
-   
-    console.log(collision);
-    if (!collision){
-
-        if(downPressed  ) {
             
+            let btml =document.elementFromPoint(postion.left, new_bottom);
+            let btmr =document.elementFromPoint(postion.right, new_bottom);
+
+            if(btml.classList.contains('wall') == false && btmr.classList.contains('wall') == false){
                 playerTop++;
                 player.style.top = playerTop + 'px';
-                playerMouth.classList = 'down';
             }
-            
+            playerMouth.classList = 'down';
+        }
         // i need to fix a problem with not being able to move when colliding 
-        else if(upPressed ) {
-            
-                playerTop--;
-                player.style.top = playerTop + 'px';
+    else if(upPressed ) {
+                let postion = player.getBoundingClientRect();
+                let newTop =postion.top -1;
+                let topL = document.elementFromPoint(postion.left, newTop);
+                let topR = document.elementFromPoint(postion.right, newTop);
+
+                if(topL.classList.contains('wall') == false && topR.classList.contains('wall') == false){
+                    playerTop--;
+                    player.style.top = playerTop + 'px';
+                }
+               
                 playerMouth.classList = 'up';
             }
         
-        else if(leftPressed ) {
-            
-                playerLeft--;
-                player.style.left = playerLeft + 'px';
-                playerMouth.classList = 'left';
-            }
+    else if(leftPressed ) {
+        let postion = player.getBoundingClientRect();
+        let newLeft = postion.left -1;
         
-        else if(rightPressed ) {
+        let leftT = document.elementFromPoint(newLeft,postion.top )
+        let leftB = document.elementFromPoint(newLeft,postion.bottom)
+        
+        if(leftT.classList.contains('wall') == false && leftB.classList.contains('wall') == false){
+            playerLeft--;
+            player.style.left = playerLeft + 'px';
+        }
+        
+        playerMouth.classList = 'left';
+       
+    }
+        
+    else if(rightPressed ) {
+        let postion = player.getBoundingClientRect();
+        let newRight = postion.right +1;
+
+        let rightT = document.elementFromPoint(newRight , postion.top )
+        let rightB = document.elementFromPoint(newRight,postion.bottom )
+
+        if(rightT.classList.contains('wall') == false && rightB.classList.contains('wall') == false){
+
             
-                
-                playerLeft++;
-                player.style.left = playerLeft + 'px';
-                playerMouth.classList = 'right';
-                }
+            playerLeft++;
+            player.style.left = playerLeft + 'px';
+            
             }
+        playerMouth.classList = 'right';
+        }
+    //             }}
 }, 10);
 
 
