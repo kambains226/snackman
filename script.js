@@ -102,7 +102,7 @@ function enemyCheck(){
   
     
     let playerPostion = player.getBoundingClientRect();
-    for (enemy of enemys) {
+    for (let enemy of enemys) {
         let enemyPostion = enemy.getBoundingClientRect();
         if (playerPostion.left < enemyPostion.right && playerPostion.right > enemyPostion.left && playerPostion.bottom > enemyPostion.top && playerPostion.top < enemyPostion.bottom){
             gameOver();
