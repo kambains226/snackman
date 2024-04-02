@@ -1,7 +1,10 @@
+// global variables 
+
 let upPressed = false;
 let downPressed = false;
 let leftPressed = false;
 let rightPressed = false;
+let num =0 ;
 
 const main = document.querySelector('main');
 
@@ -48,53 +51,82 @@ for (let y of maze) {
     }
 }
 
-// point check 
+// function that checks if player has collected the point
 function pointCheck(){
-    const postion = player.getBoundingClientRect();
-    const point1= document.querySelectorAll('.point')[0];
-    const point2= document.querySelectorAll('.point')[1];
-    const point3= document.querySelectorAll('.point')[2];
-    const point4= document.querySelectorAll('.point')[3];
-    const point5= document.querySelectorAll('.point')[4];
+    const points = document.querySelectorAll('.point');
+    const postion = player.getBoundingClientRect()
+    const pointOpacity = 0.1;
+    for (let i =0; i< points.length; i++) {
+        let pointPostion = points[i].getBoundingClientRect()
+        if (postion.right > pointPostion.left && postion.left < pointPostion.right && postion.bottom > pointPostion.top && postion.top < pointPostion.bottom){
+            
+            if (points[i].style.opacity !=pointOpacity){
+                points[i].style.opacity = pointOpacity;
+                scoreupdate();
+                
+            }
+            
+        }
+        
 
-    const p1Postion = point1.getBoundingClientRect();
-    const p2Postion = point2.getBoundingClientRect();
-    const p3Postion = point3.getBoundingClientRect();
-    const p4Postion = point4.getBoundingClientRect();
-    const p5Postion = point5.getBoundingClientRect();
+    }
 
-
-    if (postion.right > p1Postion.left && postion.left < p1Postion.right && postion.bottom > p1Postion.top && postion.top < p1Postion.bottom){
-        point1.style.display = 'none';
-    }
-    if(postion.right > p2Postion.left && postion.left < p2Postion.right && postion.bottom > p2Postion.top && postion.top < p2Postion.bottom){
-        point2.style.display = 'none';
-    }
-    if(postion.right > p3Postion.left && postion.left < p3Postion.right && postion.bottom > p3Postion.top && postion.top < p3Postion.bottom){
-        point3.style.display = 'none';
-    }
-    if (postion.right > p4Postion.left && postion.left < p4Postion.right && postion.bottom > p4Postion.top && postion.top < p4Postion.bottom){
-        point4.style.display = 'none';
-    }
 }
 
+// function to update the score called when a point is collected 
+function scoreupdate(){
+    const totalPoints=  50;
+    num+=1;
+    const pElement =document.querySelector('.score p')
 
+    let score = Number(pElement.innerText);
+    score ++;
+    pElement.innerText = score
 
+    if(num == totalPoints){
+        gameOver();
+    }
+}
+// will display gameover message 
+function gameOver(){
+    clearInterval(interval);
+    const gameOver = document.querySelector('.endDiv');
+    gameOver.style.display = 'flex';
+    
+
+    
+}
+
+function enemyCheck(){
+    const enemys = document.querySelectorAll('.enemy');
+  
+    
+    let playerPostion = player.getBoundingClientRect();
+    for (enemy of enemys) {
+        let enemyPostion = enemy.getBoundingClientRect();
+        if (playerPostion.left < enemyPostion.right && playerPostion.right > enemyPostion.left && playerPostion.bottom > enemyPostion.top && playerPostion.top < enemyPostion.bottom){
+            gameOver();
+        }
+
+    }
+
+}
 const player = document.querySelector('#player');
 const playerMouth = player.querySelector('.mouth');
 let playerTop = 0;
 let playerLeft = 0;
-
+// interval that update movement and does collision detection 
 let interval = setInterval(function() {
-    
+    let postion = player.getBoundingClientRect();
     pointCheck();
-
+    enemyCheck();
 
     if(downPressed  ) {
-            let postion = player.getBoundingClientRect();
+            
+
+            
             let new_bottom = postion.bottom + 1;
-            
-            
+
             let btml =document.elementFromPoint(postion.left, new_bottom);
             let btmr =document.elementFromPoint(postion.right, new_bottom);
 
@@ -106,21 +138,25 @@ let interval = setInterval(function() {
         }
         // i need to fix a problem with not being able to move when colliding 
     else if(upPressed ) {
-                let postion = player.getBoundingClientRect();
-                let newTop =postion.top -1;
-                let topL = document.elementFromPoint(postion.left, newTop);
-                let topR = document.elementFromPoint(postion.right, newTop);
-
-                if(topL.classList.contains('wall') == false && topR.classList.contains('wall') == false){
-                    playerTop--;
-                    player.style.top = playerTop + 'px';
-                }
-               
-                playerMouth.classList = 'up';
-            }
         
+
+        
+        let newTop =postion.top -1;
+        let topL = document.elementFromPoint(postion.left, newTop);
+        let topR = document.elementFromPoint(postion.right, newTop);
+
+        if(topL.classList.contains('wall') == false && topR.classList.contains('wall') == false){
+            playerTop--;
+            player.style.top = playerTop + 'px';
+        }
+        
+        playerMouth.classList = 'up';
+    }
+    
     else if(leftPressed ) {
-        let postion = player.getBoundingClientRect();
+        
+
+        
         let newLeft = postion.left -1;
         
         let leftT = document.elementFromPoint(newLeft,postion.top )
@@ -136,7 +172,9 @@ let interval = setInterval(function() {
     }
         
     else if(rightPressed ) {
-        let postion = player.getBoundingClientRect();
+        
+
+        
         let newRight = postion.right +1;
 
         let rightT = document.elementFromPoint(newRight , postion.top )
