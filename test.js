@@ -1,23 +1,107 @@
-let maze = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 2, 0, 1, 0, 0, 0, 0, 3, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 0, 0, 0, 0, 0, 5],
-    [1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
-    [1, 0, 0, 1, 0, 3, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-    [1, 3, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-];
+// 1. need to loop through all the enimies 
 
-// can use this to make sure the left and right bolder is always a wall 
+// 2. create a random number from 1 to 4 which decides the direction 
 
-let left = "";
-let right=''
-for (let i = 0; i< maze.length; i++) {
-    left += maze[i][0] + " ";
-    right += maze[i][maze.length-1] + " ";
-}
-console.log(left);
-console.log(right);
+// 3 use the movement code from the player to do this 
+
+// 4. add collision decteion to the player 
+
+
+function enemyMovement(enemiesArray,enemiesPos){
+        
+
+    for(i =0; i< enemiesArray.length; i++){
+        let randomMovement = Math.floor(Math.random() * 4) + 1;
+        let aiTop =0;
+        let aiLeft =0;
+
+        if (randomMovement ==1){
+            //bottom
+        //    how do i make the enemies move 
+            let newBottom = enemiesPos.bottom +1;
+
+            let btmL = document.elementFromPoint(enemiesPos.left,newBottom);
+            let btmR = document.elementFromPoint(enemyPos.right,newBottom);
+
+            // if(btmL.classList.contains('wall') == false && btmR.classList.contains('wall') == false){
+            //    aiTop++;
+            //    enemiesPos.style.top = aiTop + 'px';
+
+            // }
+            aiTop++;
+            enemiesPos.style.top = aiTop + 'px';
+        }
+        else if (randomMovement ==2){
+            //top
+            aiTop--;
+            enemiesPos.style.top = aiTop + 'px';
+        }
+        else if (randomMovement ==3){
+            //left
+            aiLeft--;
+            enemiesPos.style.top = aiLeft + 'px';
+
+        }
+        else if (randomMovement ==4){
+            // right
+        
+            aiLeft--;
+            enemiesPos.style.top = aiLeft + 'px';
+
+
+        }
+    }
+    }
+
+
+
+    function enemyMovement(enemiesArray){
+        
+
+        for(i =0; i< enemiesArray.length; i++){
+            let randomMovement = Math.floor(Math.random() * 4) + 1;
+            let aiTop = parseInt(enemiesArray[i].style.top);
+            let aiLeft = parseInt(enemiesArray[i].style.left);
+            console.log(randomMovement);
+    
+            if (randomMovement ==1){
+                //bottom
+            //    how do i make the enemies move 
+                // let newBottom = enemiesPos.bottom +1;
+    
+                // let btmL = document.elementFromPoint(enemiesPos.left,newBottom);
+                // let btmR = document.elementFromPoint(enemyPos.right,newBottom);
+    
+                // if(btmL.classList.contains('wall') == false && btmR.classList.contains('wall') == false){
+                //    aiTop++;
+                //    enemiesPos.style.top = aiTop + 'px';
+    
+                // }
+                aiTop++;
+                enemiesArray[i].style.top = aiTop + 'px';
+                
+            }
+            // else if (randomMovement ==2){
+            //     //top
+            //      aiTop++;
+            //     enemiesArray[i].style.top = aiTop + 'px';
+            // }
+            // else if (randomMovement ==3){
+            //     //left
+            //     aiLeft--;
+            //     enemiesArray[i].style.left = aiLeft + 'px';
+    
+            // }
+            // else if (randomMovement ==4){
+            //     // right
+            
+            //     aiLeft--;
+            //     enemiesArray[i].style.left = aiLeft + 'px';
+    
+    
+            // }
+            console.log("Updated Top:", aiTop);
+            console.log("Updated Left:", aiLeft);
+        }
+        
+        }
