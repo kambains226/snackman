@@ -10,27 +10,15 @@ let num =0 ;
 let score =0;
 const main = document.querySelector('main');
 
-//Player = 2, Wall = 1, Enemy = 3, Point = 0
-// let maze = [
-//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-//     [1, 2, 0, 1, 0, 0, 0, 0, 3, 1],
-//     [1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
-//     [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-//     [1, 0, 1, 1, 0, 0, 0, 0, 0, 1],
-//     [1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
-//     [1, 0, 0, 1, 0, 3, 0, 0, 0, 1],
-//     [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-//     [1, 3, 1, 0, 0, 0, 0, 0, 0, 1],
-//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-// ];
 
 
 
 
-   
-randomMaze(height, width,maze);
+
 
 //Populates the maze in the HTML
+randomMaze(height, width,maze);
+
 for (let y of maze) {
     for (let x of y) {
         let block = document.createElement('div');
@@ -59,30 +47,11 @@ for (let y of maze) {
         main.appendChild(block);
     }
 }
-//defined outside play so its always running 
-// function leaderboardAlways(){
-//     const scores = document.querySelector('.leaderboard ol');
-    
-//     for (let i = 0; i < localStorage.length; i++){
-//         let listItem = document.createElement('li');
-//         scores.appendChild(listItem);
-//         listItem.textContent = localStorage.getItem(localStorage.key(i));
-//         // localStorage.clear();
-        
-//         let key = localStorage.key(i);
-//         let value = localStorage.getItem(key);
-//         console.log(value);
-// }
-//         // console.log(localStorage.value(i));
-// }
 
-
-
-// localStorage.clear();
 leaderboardAlways();
 console.log(localStorage);
 
-// i need to make sure the function works as soon as ther user enters username 
+
 // i need to make sure it doesnt ask for a prompt twice 
 
 // function that checks if player has collected the point
@@ -112,7 +81,7 @@ function play(event){
     // function to update the score called when a point is collected 
     function scoreupdate(points){
         const totalPoints= points;
-        console.log(totalPoints);
+       
         num+=1;
         const pElement =document.querySelector('.score p')
 
@@ -140,28 +109,9 @@ function play(event){
 
         
     }
-    function leaderboard(){
-        let username = prompt('Enter your name to go on to the leaderboard');
-        if (username != ''){
-           
-            let listItem = document.createElement('li');
-            // 
-            
-            localStorage.setItem(username, username+'.........'  + score);
-            listItem.textContent = (localStorage.getItem(username+'.........' + score));
-            
-            // localStorage.clear();
-            
-           
+    
 
-           //localstorage.removeitem
-            
-
-        }
-        
-    }
-
-// i neeed to get acces to the points to add to the score 
+ 
     
     
     function enemyCheck(){
@@ -210,21 +160,49 @@ function play(event){
     // }
     
     
-   
-
-function enemyDown(enemys, postion, speed) {
-    
-    let aiTop = parseInt(enemys.style.top);
-    
-    //if (ai_btml.classList.contains('wall') == false && ai_btmr.classList.contains('wall') == false) {
+   function enemyMovement(){
+    const enemys = document.querySelectorAll('.enemy');
+    for (let enemy of enemys) {
         
-     //   enemys.style.top = aiTop + 'px';
-    //}
-    //enemys.style.top = aiTop + 'px';
-}
-    
-// score borad funtions 
+        let randomNum = Math.floor(Math.random() * 1) + 1;
+        
+        
+        if (randomNum == 1 ){
+            enemyDown(enemy,  0.5);
+        }
+        
+        // enemyLeft(enemy, postion, 1);
+        // enemyRight(enemy, postion, 1);
+        // enemyUp(enemy, postion, 1);
+    }
+   }
+// i need to make the enemy move 
+    function enemyDown(enemys,  speed) {
+        let position = enemys.getBoundingClientRect();
+        let top = position.top;
 
+        function move() {
+            top += speed;
+            enemys.style.top = top + 'px';
+
+            // Request the next frame
+            requestAnimationFrame(move);
+        }
+
+        // Start the animation
+        move();
+
+    }
+
+    //arrow buttons functions
+    function arrow() {
+        return new Promise((resolve, reject) => {
+            document.getElementById('dbttn').addEventListener('click', function() {
+                resolve(true);
+            });
+        });
+    }
+    
 
     
     const player = document.querySelector('#player');
@@ -234,15 +212,17 @@ function enemyDown(enemys, postion, speed) {
     // interval that update movement and does collision detection 
     let interval = setInterval(function() {
         let postion = player.getBoundingClientRect();
-        // console.log(score);
+        
     
        
         
 
         pointCheck();
         enemyCheck();
+        // enemyMovement();
+
         
-        if(downPressed  ) {
+        if(downPressed || arrowButton()) {
                 
 
                 
