@@ -195,15 +195,40 @@ function play(event){
     }
 
     //arrow buttons functions
-    function arrow() {
+    //down arrow
+    function downArrow() {
         return new Promise((resolve, reject) => {
             document.getElementById('dbttn').addEventListener('click', function() {
                 resolve(true);
             });
         });
     }
-    
+    // upArrow
+    function upArrow() {
+        return new Promise((resolve, reject) => {
+            document.getElementById('ubttn').addEventListener('click', function() {
+                resolve(true);
+            });
+        });
+    }
+    // left arrow 
+    function leftArrow() {
+        return new Promise((resolve, reject) => {
+            document.getElementById('lbttn').addEventListener('click', function() {
+                resolve(true);
+            });
+        });
+    }
+    // right arrow
 
+    function rightArrow() {
+        return new Promise((resolve, reject) => {
+            document.getElementById('rbttn').addEventListener('click', function() {
+                resolve(true);
+            });
+        });
+    }
+    // got a problem with the arrows work on click anywhere but only down need to fix
     
     const player = document.querySelector('#player');
     const playerMouth = player.querySelector('.mouth');
@@ -222,7 +247,7 @@ function play(event){
         // enemyMovement();
 
         
-        if(downPressed || arrowButton()) {
+        if(downPressed || downArrow()) {
                 
 
                 
@@ -239,7 +264,7 @@ function play(event){
                 playerMouth.classList = 'down';
             }
             // i need to fix a problem with not being able to move when colliding 
-        else if(upPressed ) {
+        else if(upPressed || upArrow()) {
             
 
             
@@ -255,7 +280,7 @@ function play(event){
             playerMouth.classList = 'up';
         }
         
-        else if(leftPressed ) {
+        else if(leftPressed || leftArrow()) {
             
 
             
@@ -273,7 +298,7 @@ function play(event){
         
         }
             
-        else if(rightPressed ) {
+        else if(rightPressed || rightArrow()) {
             
 
             
