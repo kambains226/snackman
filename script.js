@@ -6,6 +6,11 @@ let upPressed = false;
 let downPressed = false;
 let leftPressed = false;
 let rightPressed = false;
+let upArrowPressed = false;
+let downArrowPressed = false;
+let leftArrowPressed =false;
+let rightArrowPressed =false;
+
 let num =0 ;
 let score =0;
 const main = document.querySelector('main');
@@ -194,41 +199,8 @@ function play(event){
 
     }
 
-    //arrow buttons functions
-    //down arrow
-    function downArrow() {
-        return new Promise((resolve, reject) => {
-            document.getElementById('dbttn').addEventListener('click', function() {
-                resolve(true);
-            });
-        });
-    }
-    // upArrow
-    function upArrow() {
-        return new Promise((resolve, reject) => {
-            document.getElementById('ubttn').addEventListener('click', function() {
-                resolve(true);
-            });
-        });
-    }
-    // left arrow 
-    function leftArrow() {
-        return new Promise((resolve, reject) => {
-            document.getElementById('lbttn').addEventListener('click', function() {
-                resolve(true);
-            });
-        });
-    }
-    // right arrow
-
-    function rightArrow() {
-        return new Promise((resolve, reject) => {
-            document.getElementById('rbttn').addEventListener('click', function() {
-                resolve(true);
-            });
-        });
-    }
-    // got a problem with the arrows work on click anywhere but only down need to fix
+    
+    
     
     const player = document.querySelector('#player');
     const playerMouth = player.querySelector('.mouth');
@@ -246,9 +218,13 @@ function play(event){
         enemyCheck();
         // enemyMovement();
 
-        
-        if(downPressed || downArrow()) {
-                
+        //arrow controls on click
+        document.getElementById('dbttn').addEventListener('click', downArrow);
+        document.getElementById('ubttn').addEventListener('click', upArrow);
+        document.getElementById('lbttn').addEventListener('click', leftArrow);
+        document.getElementById('rbttn').addEventListener('click', rightArrow);
+        if(downPressed || downArrowPressed)  {
+                console.log(downArrowPressed,upArrowPressed,leftArrowPressed,rightArrowPressed)
 
                 
                 let new_bottom = postion.bottom + 1;
@@ -261,11 +237,14 @@ function play(event){
                     player.style.top = playerTop + 'px';
 
                 }
+                // else if(btml.classList.contains('wall') == true && btmr.classList.contains('wall') == true){
+                //     downArrowPressed =false;
+                // }
                 playerMouth.classList = 'down';
             }
             // i need to fix a problem with not being able to move when colliding 
-        else if(upPressed || upArrow()) {
-            
+        else if(upPressed || upArrowPressed ) {
+            console.log(downArrowPressed,upArrowPressed,leftArrowPressed,rightArrowPressed)
 
             
             let newTop =postion.top -1;
@@ -280,9 +259,9 @@ function play(event){
             playerMouth.classList = 'up';
         }
         
-        else if(leftPressed || leftArrow()) {
+        else if(leftPressed || leftArrowPressed ) {
             
-
+            console.log(downArrowPressed,upArrowPressed,leftArrowPressed,rightArrowPressed)
             
             let newLeft = postion.left -1;
             
@@ -298,9 +277,9 @@ function play(event){
         
         }
             
-        else if(rightPressed || rightArrow()) {
+        else if(rightPressed || rightArrowPressed ) {
             
-
+            console.log(downArrowPressed,upArrowPressed,leftArrowPressed,rightArrowPressed)
             
             let newRight = postion.right +1;
 
@@ -331,6 +310,38 @@ function play(event){
         // if the start div is clicked or if a child of the start div is clicked it will dissapear
         if (start.contains(event.target)) {
             start.style.display = 'none';
+            //arrow buttons functions
+            //down arrow
+            function downArrow() {
+        
+                downArrowPressed =true;
+                rightArrowPressed=false;
+                upArrowPressed=false;
+                leftArrowPressed=false;
+            }
+            // upArrow
+            function upArrow() {
+                upArrowPressed =true;
+                downArrowPressed=false;
+                rightArrowPressed=false;
+                leftArrowPressed=false;
+            }
+            // left arrow 
+            function leftArrow() {
+                leftArrowPressed =true;
+                downArrowPressed=false;
+                upArrowPressed=false;
+                rightArrowPressed=false;
+            }
+            // right arrow
+        
+            function rightArrow() {
+                rightArrowPressed =true;
+                downArrowPressed=false;
+                upArrowPressed=false;
+                leftArrowPressed=false;
+            }  
+            
             //Player movement
             function keyUp(event) {
                 
