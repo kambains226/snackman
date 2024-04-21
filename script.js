@@ -60,30 +60,21 @@ for (let y of maze) {
     }
 }
 //defined outside play so its always running 
-// function leaderboardAlways(){
-//     const scores = document.querySelector('.leaderboard ol');
+function leaderboardAlways(){
+    const scores = document.querySelector('.leaderboard ol');
     
-//     for (let i = 0; i < localStorage.length; i++){
-//         let listItem = document.createElement('li');
-//         scores.appendChild(listItem);
-//         listItem.textContent = localStorage.getItem(localStorage.key(i));
-//         // localStorage.clear();
+    for (let i = 0; i < localStorage.length; i++){
+        let listItem = document.createElement('li');
+        scores.appendChild(listItem);
+        listItem.textContent = localStorage.getItem(localStorage.key(i));
         
-//         let key = localStorage.key(i);
-//         let value = localStorage.getItem(key);
-//         console.log(value);
-// }
-//         // console.log(localStorage.value(i));
-// }
+}
+   
+}
 
-
-
-// localStorage.clear();
 leaderboardAlways();
-console.log(localStorage);
 
-// i need to make sure the function works as soon as ther user enters username 
-// i need to make sure it doesnt ask for a prompt twice 
+console.log(localStorage)
 
 // function that checks if player has collected the point
 function play(event){
@@ -132,7 +123,7 @@ function play(event){
         let gameOver = document.querySelector('.menu h1');
         let menu = document.querySelector('.menu');
         menu.style.display = 'flex';
-        leaderBoard()
+        leaderboard()
         gameOver.textContent = 'GAMEOVER!  RESTART?'
         gameOver.addEventListener('click',function(){
             location.reload();
@@ -142,17 +133,17 @@ function play(event){
     }
     function leaderboard(){
         let username = prompt('Enter your name to go on to the leaderboard');
-        if (username != ''){
-           
+        if (username){
+            const  scores = document.querySelector('.leaderboard ol');
             let listItem = document.createElement('li');
             // 
             
             localStorage.setItem(username, username+'.........'  + score);
             listItem.textContent = (localStorage.getItem(username+'.........' + score));
+            // let =text= localStorage.getItem(username);
+            
             
             // localStorage.clear();
-            
-           
 
            //localstorage.removeitem
             
