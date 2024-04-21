@@ -14,10 +14,11 @@ let rightArrowPressed =false;
 let num =0 ;
 let score =0;
 const main = document.querySelector('main');
-
-
-
-
+// finds the lives 
+const liveIcon = document.querySelector('.lives ul ');
+let aliveCheck =true ;
+let lastCalled = 0;
+const delay = 1500;
 
 
 
@@ -54,7 +55,7 @@ for (let y of maze) {
 }
 
 leaderboardAlways();
-console.log(localStorage);
+
 
 
 // i need to make sure it doesnt ask for a prompt twice 
@@ -129,9 +130,16 @@ function play(event){
             enemy.style.left=0;
             let enemyPostion = enemy.getBoundingClientRect();
             if (playerPostion.left < enemyPostion.right && playerPostion.right > enemyPostion.left && playerPostion.bottom > enemyPostion.top && playerPostion.top < enemyPostion.bottom){
-                player.classList.add('dead');
-                clearInterval(interval);
-                setTimeout(gameOver, 1500);
+                // player.classList.add('dead');
+                
+                // clearInterval(interval);
+                if(aliveCheck){
+                    removeLife();
+                }
+
+                
+
+
             
 
             } 
@@ -165,39 +173,36 @@ function play(event){
     // }
     
     
-   function enemyMovement(){
-    const enemys = document.querySelectorAll('.enemy');
-    for (let enemy of enemys) {
-        
-        let randomNum = Math.floor(Math.random() * 1) + 1;
-        
-        
-        if (randomNum == 1 ){
-            enemyDown(enemy,  0.5);
-        }
-        
-        // enemyLeft(enemy, postion, 1);
-        // enemyRight(enemy, postion, 1);
-        // enemyUp(enemy, postion, 1);
+   //lives function
+   function lives(){
+    let lives = 3;
+
+    for (let i =0; i<lives; i++){
+        let life = document.createElement('li');
+        liveIcon.append(life); 
     }
+
    }
-// i need to make the enemy move 
-    function enemyDown(enemys,  speed) {
-        let position = enemys.getBoundingClientRect();
-        let top = position.top;
-
-        function move() {
-            top += speed;
-            enemys.style.top = top + 'px';
-
-            // Request the next frame
-            requestAnimationFrame(move);
-        }
-
-        // Start the animation
-        move();
-
+   function removeLife(){
+        const now = Date.now();
+        console.log(now);
+            if(now -lastCalled > delay){
+                player.classList.add('hit')
+                setTimeout
+                liveIcon.remove(liveIcon.lastElementChild);
+                aliveCheck =false;
+                console.log(aliveCheck);
+                
+            
     }
+    
+        setTimeout(function(){
+        // could try making a count variable if count = 1 then cant move 
+        aliveCheck =true;
+        console.log(aliveCheck);
+        },1500);
+
+   }
 
     
     
@@ -206,7 +211,9 @@ function play(event){
     const playerMouth = player.querySelector('.mouth');
     let playerTop = 0;
     let playerLeft = 0;
-    // interval that update movement and does collision detection 
+    
+//  sets the lives out need it out side the interval 
+    lives();
     let interval = setInterval(function() {
         let postion = player.getBoundingClientRect();
         
@@ -216,86 +223,103 @@ function play(event){
 
         pointCheck();
         enemyCheck();
+        
         // enemyMovement();
 
         //arrow controls on click
-        document.getElementById('dbttn').addEventListener('click', downArrow);
-        document.getElementById('ubttn').addEventListener('click', upArrow);
-        document.getElementById('lbttn').addEventListener('click', leftArrow);
-        document.getElementById('rbttn').addEventListener('click', rightArrow);
-        if(downPressed || downArrowPressed)  {
-                console.log(downArrowPressed,upArrowPressed,leftArrowPressed,rightArrowPressed)
-
+        
+        console.log(downArrowPressed,upArrowPressed,leftArrowPressed,rightArrowPressed)
+        if((downPressed || downArrowPressed) )  {
+                
                 
                 let new_bottom = postion.bottom + 1;
 
                 let btml =document.elementFromPoint(postion.left, new_bottom);
                 let btmr =document.elementFromPoint(postion.right, new_bottom);
 
-                if(btml.classList.contains('wall') == false && btmr.classList.contains('wall') == false){
+                if((btml.classList.contains('wall') == false && btmr.classList.contains('wall') == false) && aliveCheck){
                     playerTop++;
                     player.style.top = playerTop + 'px';
 
                 }
-                // else if(btml.classList.contains('wall') == true && btmr.classList.contains('wall') == true){
-                //     downArrowPressed =false;
-                // }
-                playerMouth.classList = 'down';
+                else if(btml.classList.contains('wall') == true && btmr.classList.contains('wall') == true){
+                    downArrowPressed =false;
+                }
+                
+                if (playerMouth){
+                    playerMouth.classList = 'down';
+                }
             }
             // i need to fix a problem with not being able to move when colliding 
-        else if(upPressed || upArrowPressed ) {
-            console.log(downArrowPressed,upArrowPressed,leftArrowPressed,rightArrowPressed)
+        else if((upPressed || upArrowPressed ) ) {
+            
 
             
             let newTop =postion.top -1;
             let topL = document.elementFromPoint(postion.left, newTop);
             let topR = document.elementFromPoint(postion.right, newTop);
 
-            if(topL.classList.contains('wall') == false && topR.classList.contains('wall') == false){
+            if((topL.classList.contains('wall') == false && topR.classList.contains('wall') == false) && aliveCheck) {
                 playerTop--;
                 player.style.top = playerTop + 'px';
             }
-            
-            playerMouth.classList = 'up';
+            else if(topL.classList.contains('wall') == true && topR.classList.contains('wall') == true){
+                upArrowPressed =false;
+            }
+            if (playerMouth){
+                playerMouth.classList = 'up';
+            }
         }
         
-        else if(leftPressed || leftArrowPressed ) {
+        else if((leftPressed || leftArrowPressed) ) {
             
-            console.log(downArrowPressed,upArrowPressed,leftArrowPressed,rightArrowPressed)
+            
             
             let newLeft = postion.left -1;
             
             let leftT = document.elementFromPoint(newLeft,postion.top )
             let leftB = document.elementFromPoint(newLeft,postion.bottom)
             
-            if(leftT.classList.contains('wall') == false && leftB.classList.contains('wall') == false){
+            if((leftT.classList.contains('wall') == false && leftB.classList.contains('wall') == false )&& aliveCheck){
                 playerLeft--;
                 player.style.left = playerLeft + 'px';
             }
+          
             
-            playerMouth.classList = 'left';
+            else if(leftT.classList.contains('wall') == true && leftB.classList.contains('wall') == true){
+                leftArrowPressed =false;
+            }
+            if (playerMouth){
+                playerMouth.classList = 'left';
+            }
         
         }
             
-        else if(rightPressed || rightArrowPressed ) {
+        else if((rightPressed || rightArrowPressed) ) {
             
-            console.log(downArrowPressed,upArrowPressed,leftArrowPressed,rightArrowPressed)
+            
             
             let newRight = postion.right +1;
 
             let rightT = document.elementFromPoint(newRight , postion.top )
             let rightB = document.elementFromPoint(newRight,postion.bottom )
 
-            if(rightT.classList.contains('wall') == false && rightB.classList.contains('wall') == false){
+            if((rightT.classList.contains('wall') == false && rightB.classList.contains('wall') == false )&& aliveCheck){
 
                 
                 playerLeft++;
                 player.style.left = playerLeft + 'px';
                 
                 }
-            playerMouth.classList = 'right';
+            else if(rightT.classList.contains('wall') == true && rightB.classList.contains('wall') == true){
+                    rightArrowPressed =false;
+                }
+            
+            if (playerMouth){
+                    playerMouth.classList = 'right';
+                }
             }
-        //             }}
+        //             
     }, 10);
 
 
@@ -368,10 +392,15 @@ function play(event){
                     rightPressed = true;
                 }
             }
+            // interval that update movement and does collision detection 
             
-            // events listeners 
+                    // events listeners 
             document.addEventListener('keydown', keyDown);
             document.addEventListener('keyup', keyUp);
+            document.getElementById('dbttn').addEventListener('click', downArrow);
+            document.getElementById('ubttn').addEventListener('click', upArrow);
+            document.getElementById('lbttn').addEventListener('click', leftArrow);
+            document.getElementById('rbttn').addEventListener('click', rightArrow);
 
         }
         
