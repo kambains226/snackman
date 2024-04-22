@@ -17,6 +17,7 @@ const main = document.querySelector('main');
 // finds the lives 
 const liveIcon = document.querySelector('.lives ul ');
 let aliveCheck =true ;
+let canRemoveLife = true;
 let lastCalled = 0;
 const delay = 1500;
 
@@ -133,8 +134,17 @@ function play(event){
                 // player.classList.add('dead');
                 
                 // clearInterval(interval);
-                if(aliveCheck){
+                if(aliveCheck && canRemoveLife){
+                    
+                    canRemoveLife = false;
                     removeLife();
+                    console.log('f',aliveCheck);
+                    setTimeout(() =>{
+                        
+                        canRemoveLife = true;
+                        aliveCheck = true;
+                        console.log('g',aliveCheck);
+                    },1500)
                 }
 
                 
@@ -184,24 +194,23 @@ function play(event){
 
    }
    function removeLife(){
-        const now = Date.now();
-        console.log(now);
-            if(now -lastCalled > delay){
-                player.classList.add('hit')
-                setTimeout
-                liveIcon.remove(liveIcon.lastElementChild);
-                aliveCheck =false;
-                console.log(aliveCheck);
-                
-            
-    }
-    
-        setTimeout(function(){
-        // could try making a count variable if count = 1 then cant move 
-        aliveCheck =true;
+        
+           
+        player.classList.add('hit')
+        
+        if (liveIcon.lastElementChild) {
+            liveIcon.lastElementChild.remove();
+        }
+        aliveCheck =false;
+        setTimeout(() => {
+            aliveCheck = true;
+        }, 1500);
         console.log(aliveCheck);
-        },1500);
-
+        
+            
+    
+    
+        
    }
 
     
