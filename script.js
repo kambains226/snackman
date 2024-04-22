@@ -15,13 +15,15 @@ let num =0 ;
 let score =0;
 const main = document.querySelector('main');
 // finds the lives 
+
+//lives global variables
 const liveIcon = document.querySelector('.lives ul ');
 let aliveCheck =true ;
 let canRemoveLife = true;
 let lastCalled = 0;
 const delay = 1500;
-
-
+let counter = 0;
+let hearts = 3;
 
 //Populates the maze in the HTML
 randomMaze(height, width,maze);
@@ -56,6 +58,16 @@ for (let y of maze) {
 }
 
 leaderboardAlways();
+function lives(){
+    let lives = 3;
+
+    for (let i =0; i<lives; i++){
+        let life = document.createElement('li');
+        liveIcon.append(life); 
+    }
+
+   }
+lives();
 
 
 
@@ -144,7 +156,7 @@ function play(event){
                         canRemoveLife = true;
                         aliveCheck = true;
                         console.log('g',aliveCheck);
-                    },1500)
+                    },5000)
                 }
 
                 
@@ -184,29 +196,29 @@ function play(event){
     
     
    //lives function
-   function lives(){
-    let lives = 3;
-
-    for (let i =0; i<lives; i++){
-        let life = document.createElement('li');
-        liveIcon.append(life); 
-    }
-
-   }
+   
    function removeLife(){
         
            
-        player.classList.add('hit')
         
-        if (liveIcon.lastElementChild) {
-            liveIcon.lastElementChild.remove();
+        counter ++;
+        if (counter == hearts ){
+            player.classList.add('dead')
+            // gameOver(); need to make it so it waits a bit 
         }
-        aliveCheck =false;
-        setTimeout(() => {
-            aliveCheck = true;
-        }, 1500);
-        console.log(aliveCheck);
+        else{
+            player.classList.add('hit')
         
+            if (liveIcon.lastElementChild) {
+                liveIcon.lastElementChild.remove();
+            }
+            aliveCheck =false;
+            setTimeout(() => {
+                aliveCheck = true;
+                player.classList.remove('hit')
+            }, 1500);
+        
+    }
             
     
     
@@ -222,7 +234,7 @@ function play(event){
     let playerLeft = 0;
     
 //  sets the lives out need it out side the interval 
-    lives();
+    
     let interval = setInterval(function() {
         let postion = player.getBoundingClientRect();
         
