@@ -150,12 +150,11 @@ function play(event){
                     
                     canRemoveLife = false;
                     removeLife();
-                    console.log('f',aliveCheck);
                     setTimeout(() =>{
                         
                         canRemoveLife = true;
                         aliveCheck = true;
-                        console.log('g',aliveCheck);
+                        
                     },5000)
                 }
 
@@ -166,7 +165,7 @@ function play(event){
 
             } 
             // setInterval(() => enemyMovement(enemy), 50);
-            // setInterval(enemyMovement(enemy), 50);
+            enemyMovement(enemy)
             // enemyMovement(enemys);
             
         }
@@ -174,25 +173,25 @@ function play(event){
     }
 
 
-    // function enemyMovement(enemy) {
-    //     let randomnum = Math.floor(Math.random() * 1) + 1;
-    //     let enemyTop =0;
-    //     let enemy_Left =0;
-    //     console.log(randomnum);
-    //     if (randomnum ==1){
+    function enemyMovement(enemy) {
+        let randomnum = Math.floor(Math.random() * 1) + 1;
+        let enemyTop =0;
+        let enemy_Left =0;
+        console.log(randomnum);
+        if (randomnum ==1){
             
-    //         setInterval( function() { 
-    //             enemyTop++;
-    //             enemy.style.top = enemyTop+ 'px';
+            setInterval( function() { 
+                enemyTop++;
+                enemy.style.top = enemyTop+ 'px';
 
             
             
-    //         }, 10 );
+            }, 100 );
             
-    // }
+    }
         
         
-    // }
+    }
     
     
    //lives function
@@ -240,10 +239,10 @@ function play(event){
         
     
        
-        
+        enemyCheck();
 
         pointCheck();
-        enemyCheck();
+        
         
         // enemyMovement();
 
