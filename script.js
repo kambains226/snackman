@@ -25,7 +25,12 @@ const delay = 1500;
 let counter = 0;
 let hearts = 3;
 
-//Populates the maze in the HTML
+
+
+
+    
+
+//creates  the maze 
 randomMaze(height, width,maze);
 
 for (let y of maze) {
@@ -131,7 +136,7 @@ function play(event){
     
 
  
-    
+ 
     
     function enemyCheck(){
         const enemys = document.querySelectorAll('.enemy');
@@ -139,8 +144,9 @@ function play(event){
         
         let playerPostion = player.getBoundingClientRect();
         for (let enemy of enemys) {
-            enemy.style.top=0;
-            enemy.style.left=0;
+            // enemy.style.top=0;
+            // enemy.style.left=0;
+            
             let enemyPostion = enemy.getBoundingClientRect();
             if (playerPostion.left < enemyPostion.right && playerPostion.right > enemyPostion.left && playerPostion.bottom > enemyPostion.top && playerPostion.top < enemyPostion.bottom){
                 // player.classList.add('dead');
@@ -158,40 +164,20 @@ function play(event){
                     },5000)
                 }
 
-                
-
-
-            
 
             } 
-            // setInterval(() => enemyMovement(enemy), 50);
-            enemyMovement(enemy)
-            // enemyMovement(enemys);
+            // setInterval(() => enemyMovement(enemy), 200);
+            
+            // enemyMovement(enemy);
             
         }
 
     }
-
-
-    function enemyMovement(enemy) {
-        let randomnum = Math.floor(Math.random() * 1) + 1;
-        let enemyTop =0;
-        let enemy_Left =0;
-        console.log(randomnum);
-        if (randomnum ==1){
-            
-            setInterval( function() { 
-                enemyTop++;
-                enemy.style.top = enemyTop+ 'px';
-
-            
-            
-            }, 100 );
-            
-    }
+    
+    
         
         
-    }
+    
     
     
    //lives function
@@ -232,18 +218,19 @@ function play(event){
     let playerTop = 0;
     let playerLeft = 0;
     
-//  sets the lives out need it out side the interval 
+
     
     let interval = setInterval(function() {
         let postion = player.getBoundingClientRect();
         
-    
-       
+        
+        // enemyMovement();
+        
         enemyCheck();
-
+        // i need to work on collision detection for the enemy 
         pointCheck();
         
-        
+       
         // enemyMovement();
 
         //arrow controls on click
@@ -354,8 +341,18 @@ function play(event){
         // if the start div is clicked or if a child of the start div is clicked it will dissapear
         if (start.contains(event.target)) {
             start.style.display = 'none';
+            
             //arrow buttons functions
             //down arrow
+            
+            let enemies = document.querySelectorAll('.enemy');
+            enemies.forEach(enemy => {
+                setInterval(() => enemyMovement(enemy), 100); // Move each enemy every 200 milliseconds
+            });
+    
+                // ... rest of your code ...
+            
+
             function downArrow() {
         
                 downArrowPressed =true;

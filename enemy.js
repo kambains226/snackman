@@ -6,15 +6,146 @@
 
 
 
-function enemy(enemy){
+// try moving all the enemy functions to this file 
 
-    let randomnum = Math.floor(Math.random() * 4) + 1;
-    let enemyTop =0;
-    let enemy_Left =0;
-    while (randomnum ==1){
-        enemyTop++;
-        enemy.style.top = enemyTop+ 'px';
 
+
+const speed = 15;
+
+ 
+// function enemyStartMovement(){
+//     let enemiesSelect = document.querySelectorAll('.enemy');
+//     for (let enemy of enemiesSelect){
+        
+//         enemy.style.top = '0px';
+//         enemy.style.left = '0px';
+//         // let enemyTop = 0;
+//         // let enemyLeft = 0;
+//         enemy.direction = Math.floor(Math.random() * 1) + 1; // Assign a random direction to each enemy
+//         setInterval(() => enemyMovement(enemy,), 200);
+//     }
+// }
+
+
+// i need to sort out the speed of the enemies and the wall collision 
+
+// function enemyMovement(enemy) {
+//     let enemyTop = parseInt(enemy.style.top);
+//     let enemyLeft = parseInt(enemy.style.left);
+   
+//     switch (enemy.direction) {
+//         case 1: // Move down
+//             let new_bottom = enemyTop  + 1;
+//             let btmL = document.elementFromPoint(enemyLeft, new_bottom);
+//             let btmR = document.elementFromPoint(enemyLeft + enemy.offsetWidth, new_bottom);
+//             if (btmL && !btmL.classList.contains('wall') && btmR && !btmR.classList.contains('wall')) {
+//                 enemyTop += speed;
+//                 enemy.style.top = enemyTop + 'px';
+//             }
+//             else{
+//                 enemy.direction = Math.floor(Math.random() * 1) + 1;
+//             }
+//             break;
+//         case 2: // Move up
+//             let new_top = enemyTop - 1;
+//             let topL = document.elementFromPoint(enemyLeft, new_top);
+//             let topR = document.elementFromPoint(enemyLeft + enemy.offsetWidth, new_top);
+//             if (topL && !topL.classList.contains('wall') && topR && !topR.classList.contains('wall')) {
+//                 enemyTop -= speed;
+//                 enemy.style.top = enemyTop + 'px';
+//             }
+//             else{
+//                 enemy.direction = Math.floor(Math.random() * 4) + 1;
+//             }
+//             break;
+//         case 3: // Move left
+//             let new_left = enemyLeft - 1;
+//             let leftT = document.elementFromPoint(new_left, enemyTop);
+//             let leftB = document.elementFromPoint(new_left, enemyTop + enemy.offsetHeight);
+//             if (leftT && !leftT.classList.contains('wall') && leftB && !leftB.classList.contains('wall')) {
+//                 enemyLeft -= speed;
+//                 enemy.style.left = enemyLeft + 'px';
+//             }
+//             else{
+//                 enemy.direction = Math.floor(Math.random() * 4) + 1;
+//             }
+//             break;
+            
+//         case 4: // Move right
+//             let new_right = enemyLeft + enemy.offsetWidth + 1;
+//             let rightT = document.elementFromPoint(new_right, enemyTop);
+//             let rightB = document.elementFromPoint(new_right, enemyTop + enemy.offsetHeight);
+//             if (rightT && !rightT.classList.contains('wall') && rightB && !rightB.classList.contains('wall')) {
+//                 enemyLeft += speed;
+//                 enemy.style.left = enemyLeft + 'px';
+//             }
+//             else{
+//                 enemy.direction = Math.floor(Math.random() * 4) + 1;
+//             }
+//             break;
+//     }
+// }
+function enemyMovement(enemy) {
+    // Initialize the enemy's position and direction the first time the function is called
+    if (!enemy.initialized) {
+        enemy.style.top = '0px';
+        enemy.style.left = '0px';
+        enemy.direction = Math.floor(Math.random() * 4) + 1;
+        enemy.initialized = true;
     }
 
+    let enemyTop = parseInt(enemy.style.top);
+    let enemyLeft = parseInt(enemy.style.left);
+   
+    switch (enemy.direction) {
+        case 1: // Move down
+            let new_bottom = enemyTop  + 1;
+            let btmL = document.elementFromPoint(enemyLeft, new_bottom);
+            let btmR = document.elementFromPoint(enemyLeft + enemy.offsetWidth, new_bottom);
+            if (btmL && !btmL.classList.contains('wall') && btmR && !btmR.classList.contains('wall')) {
+                enemyTop += speed;
+                enemy.style.top = enemyTop + 'px';
+            }
+            
+            else{
+                enemy.direction = Math.floor(Math.random() * 4) + 1;
+            }
+            break;
+        case 2: // Move up
+            let new_top = enemyTop - 1;
+            let topL = document.elementFromPoint(enemyLeft, new_top);
+            let topR = document.elementFromPoint(enemyLeft + enemy.offsetWidth, new_top);
+            if (topL && !topL.classList.contains('wall') && topR && !topR.classList.contains('wall')) {
+                enemyTop -= speed;
+                enemy.style.top = enemyTop + 'px';
+            }
+            else{
+                enemy.direction = Math.floor(Math.random() * 4) + 1;
+            }
+            break;
+        case 3: // Move left
+            let new_left = enemyLeft - 1;
+            let leftT = document.elementFromPoint(new_left, enemyTop);
+            let leftB = document.elementFromPoint(new_left, enemyTop + enemy.offsetHeight);
+            if (leftT && !leftT.classList.contains('wall') && leftB && !leftB.classList.contains('wall')) {
+                enemyLeft -= speed;
+                enemy.style.left = enemyLeft + 'px';
+            }
+            else{
+                enemy.direction = Math.floor(Math.random() * 4) + 1;
+            }
+            
+        case 4: // Move right
+            let new_right = enemyLeft + enemy.offsetWidth + 1;
+            let rightT = document.elementFromPoint(new_right, enemyTop);
+            let rightB = document.elementFromPoint(new_right, enemyTop + enemy.offsetHeight);
+            if (rightT && !rightT.classList.contains('wall') && rightB && !rightB.classList.contains('wall')) {
+                enemyLeft += speed;
+                enemy.style.left = enemyLeft + 'px';
+            }
+            else{
+                enemy.direction = Math.floor(Math.random() * 4) + 1;
+            }
+    
+}
 }
