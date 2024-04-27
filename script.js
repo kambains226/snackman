@@ -166,9 +166,7 @@ function play(event){
 
 
             } 
-            // setInterval(() => enemyMovement(enemy), 200);
             
-            // enemyMovement(enemy);
             
         }
 
@@ -180,7 +178,6 @@ function play(event){
     
     
     
-   //lives function
    
    function removeLife(){
         
@@ -224,14 +221,14 @@ function play(event){
         let postion = player.getBoundingClientRect();
         
         
-        // enemyMovement();
+        
         
         enemyCheck();
-        // i need to work on collision detection for the enemy 
+     
         pointCheck();
         
        
-        // enemyMovement();
+       
 
         //arrow controls on click
         
@@ -345,11 +342,9 @@ function play(event){
             //arrow buttons functions
             //down arrow
             
-            let enemies = document.querySelectorAll('.enemy');
-            enemies.forEach(enemy => {
-                setInterval(() => enemyMovement(enemy), 100); // Move each enemy every 200 milliseconds
-            });
-    
+            
+            enemyMove();
+            // enemyMovement();
                 // ... rest of your code ...
             
 

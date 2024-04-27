@@ -251,6 +251,7 @@ button:nth-child(4) { grid-area: downArrow; }
     
 }
 
+
 .dead {
     animation: deathAnimation 1.5s ease-in-out forwards;
 }
