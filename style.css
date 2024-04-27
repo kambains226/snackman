@@ -36,13 +36,14 @@ header {
 
 .menuDiv div {
 	background-color: #ccc;
-    z-index: 100;
+    
 	cursor: pointer;
 	border-radius: 20px;
 	box-shadow: 4px 4px 4px #000;
     padding: 20px 30px;
     display: flex;
     height: 32px;
+    z-index: 999;
 }
 
 .menu h1 {
@@ -165,7 +166,7 @@ div p {
     height: 90%;
     width: 90%;
     position: relative;
-    transition: top 2s, left 5.5s ;
+    z-index: 998;
 }
 
 .point {
