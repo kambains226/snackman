@@ -32,6 +32,7 @@ let hearts = 3;
 
 //creates  the maze 
 randomMaze(height, width,maze);
+// might be able to use the maze function when all the points are collected 
 
 for (let y of maze) {
     for (let x of y) {
@@ -186,7 +187,7 @@ function play(event){
         counter ++;
         if (counter == hearts ){
             player.classList.add('dead')
-            // gameOver(); need to make it so it waits a bit 
+            gameOver(); //need to make it so it waits a bit 
         }
         else{
             player.classList.add('hit')
@@ -232,10 +233,10 @@ function play(event){
 
         //arrow controls on click
         
-        console.log(downArrowPressed,upArrowPressed,leftArrowPressed,rightArrowPressed)
-        if((downPressed || downArrowPressed) )  {
+       
+        if((downPressed ) )  {
                 
-                
+                console.log(downPressed, upPressed, leftPressed, rightPressed)
                 let new_bottom = postion.bottom + 1;
 
                 let btml =document.elementFromPoint(postion.left, new_bottom);
@@ -247,7 +248,7 @@ function play(event){
 
                 }
                 else if(btml.classList.contains('wall') == true && btmr.classList.contains('wall') == true){
-                    downArrowPressed =false;
+                    downPressed =false;
                 }
                 
                 if (playerMouth){
@@ -255,10 +256,10 @@ function play(event){
                 }
             }
             // i need to fix a problem with not being able to move when colliding 
-        else if((upPressed || upArrowPressed ) ) {
+        else if((upPressed  ) ) {
             
 
-            
+            console.log(downPressed, upPressed, leftPressed, rightPressed)
             let newTop =postion.top -1;
             let topL = document.elementFromPoint(postion.left, newTop);
             let topR = document.elementFromPoint(postion.right, newTop);
@@ -268,17 +269,17 @@ function play(event){
                 player.style.top = playerTop + 'px';
             }
             else if(topL.classList.contains('wall') == true && topR.classList.contains('wall') == true){
-                upArrowPressed =false;
+                upPressed =false;
             }
             if (playerMouth){
                 playerMouth.classList = 'up';
             }
         }
         
-        else if((leftPressed || leftArrowPressed) ) {
+        else if((leftPressed ) ) {
             
             
-            
+            console.log(downPressed, upPressed, leftPressed, rightPressed)
             let newLeft = postion.left -1;
             
             let leftT = document.elementFromPoint(newLeft,postion.top )
@@ -291,7 +292,7 @@ function play(event){
           
             
             else if(leftT.classList.contains('wall') == true && leftB.classList.contains('wall') == true){
-                leftArrowPressed =false;
+                leftPressed =false;
             }
             if (playerMouth){
                 playerMouth.classList = 'left';
@@ -299,10 +300,10 @@ function play(event){
         
         }
             
-        else if((rightPressed || rightArrowPressed) ) {
+        else if((rightPressed ) ) {
             
             
-            
+            console.log(downPressed, upPressed, leftPressed, rightPressed)
             let newRight = postion.right +1;
 
             let rightT = document.elementFromPoint(newRight , postion.top )
@@ -316,7 +317,7 @@ function play(event){
                 
                 }
             else if(rightT.classList.contains('wall') == true && rightB.classList.contains('wall') == true){
-                    rightArrowPressed =false;
+                    rightPressed =false;
                 }
             
             if (playerMouth){
@@ -350,32 +351,32 @@ function play(event){
 
             function downArrow() {
         
-                downArrowPressed =true;
-                rightArrowPressed=false;
-                upArrowPressed=false;
-                leftArrowPressed=false;
+                downPressed =true;
+                rightPressed=false;
+                upPressed=false;
+                leftPressed=false;
             }
             // upArrow
             function upArrow() {
-                upArrowPressed =true;
-                downArrowPressed=false;
-                rightArrowPressed=false;
-                leftArrowPressed=false;
+                upPressed =true;
+                downPressed=false;
+                rightPressed=false;
+                leftPressed=false;
             }
             // left arrow 
             function leftArrow() {
-                leftArrowPressed =true;
-                downArrowPressed=false;
-                upArrowPressed=false;
-                rightArrowPressed=false;
+                leftPressed =true;
+                downPressed=false;
+                upPressed=false;
+                rightPressed=false;
             }
             // right arrow
         
             function rightArrow() {
-                rightArrowPressed =true;
-                downArrowPressed=false;
-                upArrowPressed=false;
-                leftArrowPressed=false;
+                rightPressed =true;
+                downPressed=false;
+                upPressed=false;
+                leftPressed=false;
             }  
             
             //Player movement

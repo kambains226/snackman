@@ -15,7 +15,7 @@ function enemyMove(){
             }
             enemy.interval = setInterval(function(){
                     let enemyPostion = enemy.getBoundingClientRect();
-    
+                    
                     if (randnum === 1){
                         //bottom
                         let newBottom = enemyPostion.bottom + 1;
