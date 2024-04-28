@@ -20,7 +20,7 @@ if (username != '') {
     }
 
     // Add the current user's score
-    points[username] = score; // Assuming 'score' is a global variable
+    points[username] = score; 
 
     // Convert the points object to an array of objects
     let scores = Object.keys(points).map(key => ({ username: key, score: points[key] }));
