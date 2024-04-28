@@ -77,9 +77,6 @@ lives();
 
 
 
-// i need to make sure it doesnt ask for a prompt twice 
-
-// function that checks if player has collected the point
 function play(event){
     
     function pointCheck(){
@@ -122,7 +119,7 @@ function play(event){
 
     // will display gameover message 
     function gameOver(){
-        clearInterval(interval);
+        clearInterval(Maininterval);
         let gameOver = document.querySelector('.menu h1');
         let menu = document.querySelector('.menu');
         menu.style.display = 'flex';
@@ -187,7 +184,13 @@ function play(event){
         counter ++;
         if (counter == hearts ){
             player.classList.add('dead')
-            gameOver(); //need to make it so it waits a bit 
+            liveIcon.lastElementChild.remove();
+            setTimeout(() => {
+                clearInterval(interval);
+                gameOver();
+
+            }, 1500);
+             //need to make it so it waits a bit 
         }
         else{
             player.classList.add('hit')
@@ -218,7 +221,7 @@ function play(event){
     
 
     
-    let interval = setInterval(function() {
+    let Maininterval = setInterval(function() {
         let postion = player.getBoundingClientRect();
         
         
@@ -236,7 +239,7 @@ function play(event){
        
         if((downPressed ) )  {
                 
-                console.log(downPressed, upPressed, leftPressed, rightPressed)
+                
                 let new_bottom = postion.bottom + 1;
 
                 let btml =document.elementFromPoint(postion.left, new_bottom);
@@ -259,7 +262,7 @@ function play(event){
         else if((upPressed  ) ) {
             
 
-            console.log(downPressed, upPressed, leftPressed, rightPressed)
+            
             let newTop =postion.top -1;
             let topL = document.elementFromPoint(postion.left, newTop);
             let topR = document.elementFromPoint(postion.right, newTop);
@@ -279,7 +282,7 @@ function play(event){
         else if((leftPressed ) ) {
             
             
-            console.log(downPressed, upPressed, leftPressed, rightPressed)
+            
             let newLeft = postion.left -1;
             
             let leftT = document.elementFromPoint(newLeft,postion.top )
@@ -303,7 +306,7 @@ function play(event){
         else if((rightPressed ) ) {
             
             
-            console.log(downPressed, upPressed, leftPressed, rightPressed)
+            
             let newRight = postion.right +1;
 
             let rightT = document.elementFromPoint(newRight , postion.top )
@@ -420,5 +423,5 @@ function play(event){
     }
 
 
-
-document.addEventListener('click', play);
+let start = document.querySelector('.menu')
+start.addEventListener('click', play);
