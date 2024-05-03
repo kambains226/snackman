@@ -30,7 +30,7 @@ function enemyMove(){
                         let btmL = document.elementFromPoint(enemyPostion.left, newBottom);
                         let btmR = document.elementFromPoint(enemyPostion.right , newBottom);
     
-                        if (btmL.classList.contains('wall') == false && btmR.classList.contains('wall') == false) {
+                        if (btmL && btmR&&(btmL.classList.contains('wall') == false && btmR.classList.contains('wall') == false)) {
                             enemyTop++;
                             enemy.style.top = enemyTop + 'px';
     
@@ -42,7 +42,7 @@ function enemyMove(){
                         let topL = document.elementFromPoint(enemyPostion.left, newTop);
                         let topR = document.elementFromPoint(enemyPostion.right , newTop);
     
-                        if (topL.classList.contains('wall') == false && topR.classList.contains('wall') == false) {
+                        if (topL&& topR &&(topL.classList.contains('wall') == false && topR.classList.contains('wall') == false)) {
                             enemyTop--;
                             enemy.style.top = enemyTop + 'px';
     
@@ -57,7 +57,7 @@ function enemyMove(){
                         let leftT = document.elementFromPoint(newLeft, enemyPostion.top);
                         let leftB = document.elementFromPoint(newLeft, enemyPostion.bottom);
     
-                        if (leftT.classList.contains('wall') == false && leftB.classList.contains('wall') == false) {
+                        if (leftT&& leftB&&(leftT.classList.contains('wall') == false && leftB.classList.contains('wall') == false) ){
                             enemyLeft--;
                             enemy.style.left = enemyLeft + 'px';
                         }
@@ -68,7 +68,7 @@ function enemyMove(){
                         let rightT = document.elementFromPoint(newRight, enemyPostion.top);
                         let rightB = document.elementFromPoint(newRight, enemyPostion.bottom);
     
-                        if (rightT.classList.contains('wall') == false && rightB.classList.contains('wall') == false) {
+                        if (rightT && rightB&&(rightT.classList.contains('wall') == false && rightB.classList.contains('wall') == false)){
                             enemyLeft++;
                             enemy.style.left = enemyLeft + 'px';
                         }

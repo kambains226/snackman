@@ -6,6 +6,7 @@
 
 function leaderBoard() {
     let username = prompt('Enter your name to go on to the leaderboard');
+    username = username.trim();
 if (username != '') {
     let points = {};
     
@@ -37,6 +38,9 @@ if (username != '') {
         localStorage.setItem(scores[i].username, scores[i].username + '......' + scores[i].score);
     }
     
+}
+else{
+    leaderBoard();
 }
 
 }

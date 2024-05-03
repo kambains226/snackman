@@ -95,7 +95,7 @@ function play(event){
         
         if(num == 10){
             // maybe do it by localStorage
-            //i need to make it so when the score stays the same and it goes to a new maze
+        
             
             enemyMoveEnable = false;
             setTimeout(() => {
@@ -245,7 +245,7 @@ function play(event){
                     player.style.top = playerTop + 'px';
 
                 }
-                else if(btml.classList.contains('wall') == true && btmr.classList.contains('wall') == true){
+                else if(btml& btmr &(btml.classList.contains('wall') == true && btmr.classList.contains('wall') == true)){
                     downPressed =false;
                 }
                 
@@ -314,7 +314,7 @@ function play(event){
                 player.style.left = playerLeft + 'px';
                 
                 }
-            else if(rightT.classList.contains('wall') == true && rightB.classList.contains('wall') == true){
+            else if(rightT&rightB&(rightT.classList.contains('wall') == true && rightB.classList.contains('wall') == true)){
                     rightPressed =false;
                 }
             

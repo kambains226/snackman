@@ -140,7 +140,7 @@ const mazeDifficulty = () =>{
     enemyCount  ++;
     height ++;
     widthIncrease(++width);
-    walls +=1;
+    walls +=3;
     
     
 
@@ -148,9 +148,14 @@ const mazeDifficulty = () =>{
 }
 // limits where the walls can spawn trying to prevent unplayable game
 function unplayable(array, column, row) {
-    if ((array[column-1][row] == 1 || array[column+1][row] == 1 || array[column][row-1] == 1 || array[column][row+1] == 1) &&(array[column-1][row-1] || array[column-1][row+1] || array[column+1][row-1] || array[column+1][row+1])  ) {
-        return true;
-    }
+    //&& (array[column][row+2] ==1 && array[column][row-2] ==1 && array[column +2][row] ==1 &&array[column -2][row] ==1 )
+    // if ((array[column-1][row] == 1 || array[column+1][row] == 1 || array[column][row-1] == 1 || array[column][row+1] == 1) &&(array[column-1][row-1] ==1 || array[column-1][row+1] ==1 || array[column+1][row-1] == 1 || array[column+1][row+1] ==1) ||  (array[column][row+2] ==1 && array[column][row-2] ==1 && array[column +2][row] ==1 &&array[column -2][row] ==1 ) ) {
+    //     return true;
+    // }
+    // still sometimes the maze cant be completed 
+
+    
+    
     
 }
 
