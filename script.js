@@ -92,8 +92,8 @@ function play(event){
         score = Number(pElement.innerText);
         score ++;
         pElement.innerText = score
-        console.log(num);
-        if(num == totalPoints){
+        
+        if(num == 10){
             // maybe do it by localStorage
             //i need to make it so when the score stays the same and it goes to a new maze
             
@@ -101,7 +101,7 @@ function play(event){
             setTimeout(() => {
                 clearMaze();
                 // allows the player to move once the level is clear
-                play();
+                play(event);
                 
                 
                 
@@ -240,7 +240,7 @@ function play(event){
                 let btml =document.elementFromPoint(postion.left, new_bottom);
                 let btmr =document.elementFromPoint(postion.right, new_bottom);
 
-                if((btml.classList.contains('wall') == false && btmr.classList.contains('wall') == false) && aliveCheck){
+                if(btml && btmr &&(btml.classList.contains('wall') == false && btmr.classList.contains('wall') == false) && aliveCheck){
                     playerTop++;
                     player.style.top = playerTop + 'px';
 
@@ -262,11 +262,11 @@ function play(event){
             let topL = document.elementFromPoint(postion.left, newTop);
             let topR = document.elementFromPoint(postion.right, newTop);
 
-            if((topL.classList.contains('wall') == false && topR.classList.contains('wall') == false) && aliveCheck) {
+            if(topL &&  topR &&(topL.classList.contains('wall') == false && topR.classList.contains('wall') == false) && aliveCheck) {
                 playerTop--;
                 player.style.top = playerTop + 'px';
             }
-            else if(topL.classList.contains('wall') == true && topR.classList.contains('wall') == true){
+            else if(topL && topR &&(topL.classList.contains('wall') == true && topR.classList.contains('wall') == true)){
                 upPressed =false;
             }
             if (playerMouth){
@@ -283,13 +283,13 @@ function play(event){
             let leftT = document.elementFromPoint(newLeft,postion.top )
             let leftB = document.elementFromPoint(newLeft,postion.bottom)
             
-            if((leftT.classList.contains('wall') == false && leftB.classList.contains('wall') == false )&& aliveCheck){
+            if(leftT && leftB &&(leftT.classList.contains('wall') == false && leftB.classList.contains('wall') == false )&& aliveCheck){
                 playerLeft--;
                 player.style.left = playerLeft + 'px';
             }
           
             
-            else if(leftT.classList.contains('wall') == true && leftB.classList.contains('wall') == true){
+            else if(leftT && leftB &&(leftT.classList.contains('wall') == true && leftB.classList.contains('wall') == true)){
                 leftPressed =false;
             }
             if (playerMouth){
@@ -307,7 +307,7 @@ function play(event){
             let rightT = document.elementFromPoint(newRight , postion.top )
             let rightB = document.elementFromPoint(newRight,postion.bottom )
 
-            if((rightT.classList.contains('wall') == false && rightB.classList.contains('wall') == false )&& aliveCheck){
+            if(rightT &&rightB &&(rightT.classList.contains('wall') == false && rightB.classList.contains('wall') == false )&& aliveCheck){
 
                 
                 playerLeft++;
