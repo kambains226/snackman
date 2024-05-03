@@ -11,10 +11,10 @@ let downArrowPressed = false;
 let leftArrowPressed =false;
 let rightArrowPressed =false;
 
+//used for the score
 let num =0 ;
 let score =0;
 const main = document.querySelector('main');
-// finds the lives 
 
 //lives global variables
 const liveIcon = document.querySelector('.lives ul ');
@@ -25,43 +25,25 @@ const delay = 1500;
 let counter = 0;
 let hearts = 3;
 
-
+let block;
 
 
     
 
-//creates  the maze 
-randomMaze(height, width,maze);
+//creates  the  random maze 
+
+randomMaze(height, width, maze);
+MazeAssignment();
+
+
 // might be able to use the maze function when all the points are collected 
+// put this in a function 
 
-for (let y of maze) {
-    for (let x of y) {
-        let block = document.createElement('div');
-        block.classList.add('block');
+    
 
-        switch (x) {
-            case 1:
-                block.classList.add('wall');
-                break;
-            case 2:
-                block.id = 'player';
-                let mouth = document.createElement('div');
-                mouth.classList.add('mouth');
-                block.appendChild(mouth);
-                break;
-            case 3:
-                block.classList.add('enemy');
-                
-                break;
-            default:
-                block.classList.add('point');
-                block.style.height = '1vh';
-                block.style.width = '1vh';
-        }
+    
 
-        main.appendChild(block);
-    }
-}
+
 
 leaderboardAlways();
 function lives(){
@@ -102,7 +84,7 @@ function play(event){
 
     // function to update the score called when a point is collected 
     function scoreupdate(points){
-        const totalPoints= points;
+        let totalPoints= points;
        
         num+=1;
         const pElement =document.querySelector('.score p')
@@ -110,9 +92,20 @@ function play(event){
         score = Number(pElement.innerText);
         score ++;
         pElement.innerText = score
-
+        console.log(num);
         if(num == totalPoints){
-            gameOver();
+            // maybe do it by localStorage
+            //i need to make it so when the score stays the same and it goes to a new maze
+            
+            enemyMoveEnable = false;
+            setTimeout(() => {
+                clearMaze();
+                // allows the player to move once the level is clear
+                play();
+                
+                
+                
+            },2000);
 
         }
      }
@@ -120,6 +113,7 @@ function play(event){
     // will display gameover message 
     function gameOver(){
         clearInterval(Maininterval);
+        enemyMoveEnable = false;
         let gameOver = document.querySelector('.menu h1');
         let menu = document.querySelector('.menu');
         menu.style.display = 'flex';
@@ -180,18 +174,19 @@ function play(event){
    function removeLife(){
         
            
-        
+        // checks to see if the player is dead 
         counter ++;
         if (counter == hearts ){
             player.classList.add('dead')
             liveIcon.lastElementChild.remove();
             setTimeout(() => {
-                clearInterval(interval);
+                
                 gameOver();
+                // clearInterval(enemyInterval);
 
-            }, 1500);
-             //need to make it so it waits a bit 
+            }, 1500); 
         }
+        // if collision it adds the hit class  and removes a life 
         else{
             player.classList.add('hit')
         

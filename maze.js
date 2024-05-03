@@ -1,15 +1,77 @@
 
+let walls = 9;
+let enemyCount = 1;
+
+let height =9;
+let width = 9;
+// generates the maze 
+function clearMaze() {
+    
+
+    
+    let blockContents = document.querySelectorAll('.block');
+    blockContents.forEach((block) => {
+        block.remove();
+    });
+    maze=[];
+    clearEnemyMovement(); 
+    //makes the level more dificult 
+    mazeDifficulty();
+    // creates the maze after deleting it 
+    
+    randomMaze(height,width,maze)
+    widthIncrease(width);
+    MazeAssignment();
+    
+    
+    // allows the enemy to move 
+    enemyMoveEnable=true;
+    enemyMove();
+    
+    // resets the score 
+    num =0;
+
+    
+}
+
+function clearEnemyMovement(){
+    clearInterval(enemyMovementInterval)
+    clearInterval(enemySecondInterval)
+}
+const MazeAssignment =() =>{
+    for (let y of maze) {
+        for (let x of y) {
+            block = document.createElement('div');
+            block.classList.add('block');
+    
+            switch (x) {
+                case 1:
+                    block.classList.add('wall');
+                    break;
+                case 2:
+                    block.id = 'player';
+                    let mouth = document.createElement('div');
+                    mouth.classList.add('mouth');
+                    block.appendChild(mouth);
+                    break;
+                case 3:
+                    block.classList.add('enemy');
+                    
+                    break;
+                default:
+                    block.classList.add('point');
+                    block.style.height = '1vh';
+                    block.style.width = '1vh';
+            }
+    
+            main.appendChild(block);
+        }
+    
+    }
+}
 function randomMaze(height, width,maze)  {
 
-// 1. FIrst i need to create a 2d array and make alle the numbers in it 0 by default
-// 2. Then i need to create a function that will randomly place walls in the maze
-// 3. i do this by first making it so all the outter walls are a 1
-// 4. then i need to place the player 2
-// 5. then i should place the walls 9
-// 6. then i  should place the points 50 
 
-const walls = 9;
-const enemyCount = 3;
     
     // intialise the array with all points
 
@@ -43,16 +105,6 @@ const enemyCount = 3;
     const numOfRows = maze.length;
     const rowLength =maze[0].length;
 
-    // for (let i =0; i < 1; i++) {
-    //     const mazearray = Math.floor(Math.random() * numOfRows)
-    //     const rowArray = Math.floor(Math.random() * rowLength)
-
-    //     if (maze[mazearray][rowArray] === 0) {
-    //         maze[mazearray][rowArray] = 2
-    //     } else {
-    //         i--
-    //     }
-    // // }
     maze[1][1]=2;
 
     // enemy postion 
@@ -67,7 +119,7 @@ const enemyCount = 3;
         }
     }
 
-    // inside walls postion 
+    // walls inside maze not border  postion 
 
     for (let i =0; i < walls; i++) {
         const mazearray = Math.floor(Math.random() * numOfRows)
@@ -81,23 +133,49 @@ const enemyCount = 3;
     }
 
     return maze
-
+    
 }
 
+const mazeDifficulty = () =>{
+    enemyCount  ++;
+    height ++;
+    widthIncrease(++width);
+    walls +=1;
+    
+    
+
+    console.log(enemyCount,height,width)
+}
+// limits where the walls can spawn trying to prevent unplayable game
 function unplayable(array, column, row) {
     if ((array[column-1][row] == 1 || array[column+1][row] == 1 || array[column][row-1] == 1 || array[column][row+1] == 1) &&(array[column-1][row-1] || array[column-1][row+1] || array[column+1][row-1] || array[column+1][row+1])  ) {
         return true;
     }
+    
 }
-const height = 10;
-const width = 10;
+
+// changes the width depending on what the width variable is set to
+// increase the width 
+function widthIncrease(width){
+    
+    
+    let mainWidth = document.querySelector('main');
+    mainWidth.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
+    
+        
+    
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    widthIncrease(width);
+    
+    
+});
+
 
 
 let maze = [];
 
-// function hello (){
-//     console.log("hello");
-// };
 
 
 

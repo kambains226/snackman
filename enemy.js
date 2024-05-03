@@ -1,22 +1,30 @@
 
 
 
-
+let enemyMoveEnable =true;
+let enemyMovementInterval;
+let enemySecondInterval;
+//getting alot of errors when enemy is moving after clear maybe define that function in enemy move 
 function enemyMove(){
-    let enemies = document.querySelectorAll('.enemy');
+        
+        let enemies = document.querySelectorAll('.enemy');
         enemyMovementInterval= setInterval(function enemyMovement(){
+            
+            
             enemies.forEach(function enemyMovements(enemy){
             let enemyTop = parseInt(enemy.style.top) || 0;
             let enemyLeft = parseInt(enemy.style.left) || 0;
             let randnum = Math.floor(Math.random() * 4 + 1); 
-    
-            if (enemy.interval){
-                clearInterval(enemy.interval);
+            enemySecondInterval = enemy.interval;
+            if (enemySecondInterval){
+                clearInterval(enemySecondInterval);
             }
             enemy.interval = setInterval(function(){
+                
+                
                     let enemyPostion = enemy.getBoundingClientRect();
                     
-                    if (randnum === 1){
+                    if (randnum === 1 && enemyMoveEnable){
                         //bottom
                         let newBottom = enemyPostion.bottom + 1;
                         let btmL = document.elementFromPoint(enemyPostion.left, newBottom);
@@ -28,7 +36,7 @@ function enemyMove(){
     
                         }
                     }
-                    else if(randnum === 2){
+                    else if(randnum === 2 && enemyMoveEnable){
                         //top
                         let newTop = enemyPostion.top - 1;
                         let topL = document.elementFromPoint(enemyPostion.left, newTop);
@@ -41,7 +49,7 @@ function enemyMove(){
                         }
                        
                     }
-                    else if(randnum === 3){
+                    else if(randnum === 3 && enemyMoveEnable){
     
                     
                         //left
@@ -54,7 +62,7 @@ function enemyMove(){
                             enemy.style.left = enemyLeft + 'px';
                         }
                     }
-                    else if(randnum === 4){
+                    else if(randnum === 4 && enemyMoveEnable){
                         //right
                         let newRight = enemyPostion.right + 1;
                         let rightT = document.elementFromPoint(newRight, enemyPostion.top);
