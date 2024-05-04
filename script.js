@@ -74,6 +74,9 @@ function play(event){
                     scoreupdate(points.length);
                     
                 }
+                // if (points[i].classList.contains('extraLife')){
+                //     console.log('extra life');
+                // }
                 
             }
             
@@ -214,7 +217,7 @@ function play(event){
     let playerTop = 0;
     let playerLeft = 0;
     
-
+    powerups();
     
     let Maininterval = setInterval(function() {
         let postion = player.getBoundingClientRect();

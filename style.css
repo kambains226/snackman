@@ -173,7 +173,10 @@ div p {
     border-radius: 100%;
     background-color: white;
 }
+.extraLife{
+    background-color: #f54263;
 
+}
 .wall {
     background-color: blue;
     width: 100%;

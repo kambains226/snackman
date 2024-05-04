@@ -4,6 +4,8 @@ let enemyCount = 1;
 
 let height =9;
 let width = 9;
+
+
 // generates the maze 
 function clearMaze() {
     
@@ -40,10 +42,11 @@ function clearEnemyMovement(){
 }
 const MazeAssignment =() =>{
     for (let y of maze) {
+        let rowElements =[]
         for (let x of y) {
             block = document.createElement('div');
             block.classList.add('block');
-    
+            rowElements.push(block);
             switch (x) {
                 case 1:
                     block.classList.add('wall');
@@ -60,12 +63,14 @@ const MazeAssignment =() =>{
                     break;
                 default:
                     block.classList.add('point');
+                    
                     block.style.height = '1vh';
                     block.style.width = '1vh';
             }
     
             main.appendChild(block);
         }
+        mazeContents.push(rowElements);
     
     }
 }
@@ -149,9 +154,9 @@ const mazeDifficulty = () =>{
 // limits where the walls can spawn trying to prevent unplayable game
 function unplayable(array, column, row) {
     //&& (array[column][row+2] ==1 && array[column][row-2] ==1 && array[column +2][row] ==1 &&array[column -2][row] ==1 )
-    // if ((array[column-1][row] == 1 || array[column+1][row] == 1 || array[column][row-1] == 1 || array[column][row+1] == 1) &&(array[column-1][row-1] ==1 || array[column-1][row+1] ==1 || array[column+1][row-1] == 1 || array[column+1][row+1] ==1) ||  (array[column][row+2] ==1 && array[column][row-2] ==1 && array[column +2][row] ==1 &&array[column -2][row] ==1 ) ) {
-    //     return true;
-    // }
+    if ((array[column-1][row] == 1 || array[column+1][row] == 1 || array[column][row-1] == 1 || array[column][row+1] == 1) &&(array[column-1][row-1] ==1 || array[column-1][row+1] ==1 || array[column+1][row-1] == 1 || array[column+1][row+1] ==1) ||  (array[column][row+2] ==1 && array[column][row-2] ==1 && array[column +2][row] ==1 &&array[column -2][row] ==1 ) ) {
+        return true;
+    }
     // still sometimes the maze cant be completed 
 
     
@@ -171,16 +176,88 @@ function widthIncrease(width){
     
 }
 
+
 document.addEventListener('DOMContentLoaded', (event) => {
     widthIncrease(width);
     
     
 });
+function powerups(){
 
 
+    for (let i = 0; i < height; i++) {
+        // let powerupChance = Math.floor(Math.random() * 1 + 1);
+        for (let j = 0; j < width; j++) {
+            
+            // if (powerupChance === 1 ){
 
+            //     addPowerup();
+            // }
+            if (maze[i][j] === 0 && powerupEnable === 1) {
+
+                let randomTime = Math.floor(Math.random() * (1000 - 3000 + 1)) + 10000;
+                powerupEnable ++;
+                //need to find a way to get the point to be added  when the class is being added to non point 
+                setTimeout(() => {
+                    
+                    pointSelection();
+                    
+                    if(mazeContents[x][y] ==0){
+                        mazeContents[x][y].classList.add('extraLife')
+                        console.log(mazeContents[x][y])
+                    }
+
+                    else{
+                        powerupEnable =0;
+                        pointSelection();
+                        console.log(mazeContents[x][y],'adsasf')
+                    }
+                    
+                    
+                    console.log(powerupEnable)
+                    
+                    
+                    
+                    }, randomTime);
+                    
+            }
+        }
+
+    }
+}
+// function addPowerup(){
+//     //the job of this function is to randomly stop the loop from being enabled
+//     powerupEnable = t;
+
+// }
+function removePowerUp(){
+    let powerupDuration =Math.floor(Math.random() * ( 20000- 5000 + 1)) + 10000;
+    
+
+    setTimeout(() => {
+        powerupEnable = false
+
+    }, powerupDuration);
+
+
+    
+}
+//gets a random point on the maze
+function pointSelection(){
+    
+    // selects a random postion  
+    x = Math.floor(Math.random() * height);
+    y = Math.floor(Math.random() * width);
+
+    
+    
+    
+};
+// function addLife (){
+
+// }
 let maze = [];
-
-
-
+let mazeContents =[];
+let powerupEnable =1;
+let x, y;
 
