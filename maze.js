@@ -33,7 +33,9 @@ function clearMaze() {
     // resets the score 
     num =0;
 
-    
+    //powerups
+    powerups();
+    powerupEnable =1;
 }
 
 function clearEnemyMovement(){
@@ -186,44 +188,47 @@ function powerups(){
 
 
     for (let i = 0; i < height; i++) {
-        // let powerupChance = Math.floor(Math.random() * 1 + 1);
+        
         for (let j = 0; j < width; j++) {
             
-            // if (powerupChance === 1 ){
 
-            //     addPowerup();
-            // }
+            
+            
+            
+            
             if (maze[i][j] === 0 && powerupEnable === 1) {
+                
+                
+                
+                    
+                    let randomTime = Math.floor(Math.random() * (1000 - 3000 + 1)) + 30000;
+                    powerupEnable = 0;
+                    
+                    //need to find a way to get the point to be added  when the class is being added to non point 
+                    setTimeout(() => {
+                        let points = document.querySelectorAll('.point');
+                        pointSelection(points.length);
+                        
+                        
+                            points[x].classList.add('extraLife')
+                            console.log(points[x])
+                            powerupEnable=2;
 
-                let randomTime = Math.floor(Math.random() * (1000 - 3000 + 1)) + 10000;
-                powerupEnable ++;
-                //need to find a way to get the point to be added  when the class is being added to non point 
-                setTimeout(() => {
-                    
-                    pointSelection();
-                    
-                    if(mazeContents[x][y] ==0){
-                        mazeContents[x][y].classList.add('extraLife')
-                        console.log(mazeContents[x][y])
-                    }
+                        
 
-                    else{
-                        powerupEnable =0;
-                        pointSelection();
-                        console.log(mazeContents[x][y],'adsasf')
-                    }
-                    
-                    
-                    console.log(powerupEnable)
-                    
-                    
-                    
-                    }, randomTime);
-                    
+                        
+                        
+                        
+                        console.log(powerupEnable)
+                        
+                        
+                        
+                        }, randomTime);
+                        
+                }
             }
-        }
-
     }
+    
 }
 // function addPowerup(){
 //     //the job of this function is to randomly stop the loop from being enabled
@@ -243,19 +248,24 @@ function removePowerUp(){
     
 }
 //gets a random point on the maze
-function pointSelection(){
+function pointSelection(pointsArr){
     
-    // selects a random postion  
-    x = Math.floor(Math.random() * height);
-    y = Math.floor(Math.random() * width);
+    // selects a random point
+    x = Math.floor(Math.random() * pointsArr);
+   
 
     
     
     
 };
-// function addLife (){
+function addLife (){
+    let extraLife = document.createElement('li');
 
-// }
+    liveIcon.appendChild(extraLife);
+}
+
+//all maze related gloabal variables
+
 let maze = [];
 let mazeContents =[];
 let powerupEnable =1;

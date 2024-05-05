@@ -36,10 +36,7 @@ randomMaze(height, width, maze);
 MazeAssignment();
 
 
-// might be able to use the maze function when all the points are collected 
-// put this in a function 
 
-    
 
     
 
@@ -68,15 +65,18 @@ function play(event){
         for (let i =0; i< points.length; i++) {
             let pointPostion = points[i].getBoundingClientRect()
             if (postion.right > pointPostion.left && postion.left < pointPostion.right && postion.bottom > pointPostion.top && postion.top < pointPostion.bottom){
+                if (points[i].classList.contains('extraLife') && points[i].style.opacity !=pointOpacity ){
+                    // need to make it so it only adds one life 
+                    addLife();
                 
+            }
                 if (points[i].style.opacity !=pointOpacity){
                     points[i].style.opacity = pointOpacity;
                     scoreupdate(points.length);
                     
                 }
-                // if (points[i].classList.contains('extraLife')){
-                //     console.log('extra life');
-                // }
+                
+                
                 
             }
             
@@ -96,8 +96,8 @@ function play(event){
         score ++;
         pElement.innerText = score
         
-        if(num == 10){
-            // maybe do it by localStorage
+        if(num == totalPoints){
+            
         
             
             enemyMoveEnable = false;
@@ -139,14 +139,11 @@ function play(event){
         
         let playerPostion = player.getBoundingClientRect();
         for (let enemy of enemys) {
-            // enemy.style.top=0;
-            // enemy.style.left=0;
+            
             
             let enemyPostion = enemy.getBoundingClientRect();
             if (playerPostion.left < enemyPostion.right && playerPostion.right > enemyPostion.left && playerPostion.bottom > enemyPostion.top && playerPostion.top < enemyPostion.bottom){
-                // player.classList.add('dead');
                 
-                // clearInterval(interval);
                 if(aliveCheck && canRemoveLife){
                     
                     canRemoveLife = false;
@@ -346,8 +343,8 @@ function play(event){
             
             
             enemyMove();
-            // enemyMovement();
-                // ... rest of your code ...
+            
+               
             
 
             function downArrow() {
