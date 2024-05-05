@@ -151,21 +151,53 @@ const mazeDifficulty = () =>{
     
     
 
-    console.log(enemyCount,height,width)
+    
 }
 // limits where the walls can spawn trying to prevent unplayable game
+// function unplayable(array, column, row) {
+//     //&& (array[column][row+2] ==1 && array[column][row-2] ==1 && array[column +2][row] ==1 &&array[column -2][row] ==1 )
+//     if ((array[column-1][row] == 1 || array[column+1][row] == 1 || array[column][row-1] == 1 || array[column][row+1] == 1) &&(array[column-1][row-1] ==1 || array[column-1][row+1] ==1 || array[column+1][row-1] == 1 || array[column+1][row+1] ==1) ||  (array[column][row+2] ==1 && array[column][row-2] ==1 && array[column +2][row] ==1 &&array[column -2][row] ==1 ) ) {
+//         return true;
+//     }
+//     // still sometimes the maze cant be completed 
+
+    
+    
+    
+// }
 function unplayable(array, column, row) {
-    //&& (array[column][row+2] ==1 && array[column][row-2] ==1 && array[column +2][row] ==1 &&array[column -2][row] ==1 )
-    if ((array[column-1][row] == 1 || array[column+1][row] == 1 || array[column][row-1] == 1 || array[column][row+1] == 1) &&(array[column-1][row-1] ==1 || array[column-1][row+1] ==1 || array[column+1][row-1] == 1 || array[column+1][row+1] ==1) ||  (array[column][row+2] ==1 && array[column][row-2] ==1 && array[column +2][row] ==1 &&array[column -2][row] ==1 ) ) {
-        return true;
+    //atempting a Breadth first search algorithm
+    let visited = array.map(row => row.map(()=> false))
+    let queue = [{column: column, row: row}]
+
+    while (queue.length > 0) {
+
+        let current = queue.shift()
+        let {column, row} = current
+
+        if (column < 0 || column >= array.length || row < 0 || row >= array[0].length) {
+            continue
+        }
+
+        if (visited[column][row]) {
+            continue
+        }
+
+        visited[column][row] = true
+
+        if (array[column][row] === 1) {
+            return true
+        }
+
+        queue.push({column: column - 1, row: row})
+        queue.push({column: column + 1, row: row})
+        queue.push({column: column, row: row - 1})
+        queue.push({column: column, row: row + 1})
     }
-    // still sometimes the maze cant be completed 
+    return false;
+    
 
-    
-    
-    
 }
-
 // changes the width depending on what the width variable is set to
 // increase the width 
 function widthIncrease(width){
@@ -201,7 +233,7 @@ function powerups(){
                 
                 
                     
-                    let randomTime = Math.floor(Math.random() * (1000 - 3000 + 1)) + 30000;
+                    let randomTime = Math.floor(Math.random() * (1000 - 3000 + 1)) + 20000;
                     powerupEnable = 0;
                     
                     //need to find a way to get the point to be added  when the class is being added to non point 
@@ -230,23 +262,8 @@ function powerups(){
     }
     
 }
-// function addPowerup(){
-//     //the job of this function is to randomly stop the loop from being enabled
-//     powerupEnable = t;
-
-// }
-function removePowerUp(){
-    let powerupDuration =Math.floor(Math.random() * ( 20000- 5000 + 1)) + 10000;
-    
-
-    setTimeout(() => {
-        powerupEnable = false
-
-    }, powerupDuration);
 
 
-    
-}
 //gets a random point on the maze
 function pointSelection(pointsArr){
     
@@ -262,6 +279,7 @@ function addLife (){
     let extraLife = document.createElement('li');
 
     liveIcon.appendChild(extraLife);
+    hearts++;
 }
 
 //all maze related gloabal variables
