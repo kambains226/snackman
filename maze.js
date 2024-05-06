@@ -1,12 +1,16 @@
-
+// maze gloabl variables 
 let walls = 9;
 let enemyCount = 1;
 
 let height =9;
 let width = 9;
 
+let maze = [];
 
-// generates the maze 
+let powerupEnable =1;
+let x, y;
+
+// generates the new maze 
 function clearMaze() {
     
 
@@ -38,17 +42,21 @@ function clearMaze() {
     powerupEnable =1;
 }
 
+// makes the enemies stop moving  when level is completed 
+
 function clearEnemyMovement(){
     clearInterval(enemyMovementInterval)
     clearInterval(enemySecondInterval)
 }
+
+// assigns the maze array with its class 
 const MazeAssignment =() =>{
     for (let y of maze) {
-        let rowElements =[]
+        
         for (let x of y) {
             block = document.createElement('div');
             block.classList.add('block');
-            rowElements.push(block);
+            
             switch (x) {
                 case 1:
                     block.classList.add('wall');
@@ -72,10 +80,11 @@ const MazeAssignment =() =>{
     
             main.appendChild(block);
         }
-        mazeContents.push(rowElements);
+       
     
     }
 }
+// generates the random maze 
 function randomMaze(height, width,maze)  {
 
 
@@ -94,9 +103,8 @@ function randomMaze(height, width,maze)  {
 
     // places the walls on the outside
 
-    // maze[0] shouuld equal 1 
 
-    // maze[height - 1] = Array(width).fill(1)
+
     for (let i = 0; i < height; i++) {
         maze[i][0] = 1
         maze[i][width - 1] = 1
@@ -148,6 +156,8 @@ function randomMaze(height, width,maze)  {
     
 }
 
+// makes the maze more difficult 
+
 const mazeDifficulty = () =>{
     enemyCount  ++;
     height ++;
@@ -189,11 +199,7 @@ function powerups(){
     for (let i = 0; i < height; i++) {
         
         for (let j = 0; j < width; j++) {
-            
-
-            
-            
-            
+        
             
             if (maze[i][j] === 0 && powerupEnable === 1) {
                 
@@ -208,17 +214,13 @@ function powerups(){
                         let points = document.querySelectorAll('.point');
                         pointSelection(points.length);
                         
+                            // adds the extra life class when collected 
                         
                             points[x].classList.add('extraLife')
                             console.log(points[x])
                             powerupEnable=2;
 
                         
-
-                        
-                        
-                        
-                        console.log(powerupEnable)
                         
                         
                         
@@ -241,7 +243,10 @@ function pointSelection(pointsArr){
     
     
     
+
 };
+
+// adds the life 
 function addLife (){
     let extraLife = document.createElement('li');
 
@@ -249,10 +254,4 @@ function addLife (){
     hearts++;
 }
 
-//all maze related gloabal variables
-
-let maze = [];
-let mazeContents =[];
-let powerupEnable =1;
-let x, y;
 

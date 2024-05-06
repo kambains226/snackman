@@ -1,19 +1,16 @@
 
 
 // global variables 
-
+//movement key checks
 let upPressed = false;
 let downPressed = false;
 let leftPressed = false;
 let rightPressed = false;
-let upArrowPressed = false;
-let downArrowPressed = false;
-let leftArrowPressed =false;
-let rightArrowPressed =false;
 
 //used for the score
 let num =0 ;
 let score =0;
+// selects the main tag 
 const main = document.querySelector('main');
 
 //lives global variables
@@ -40,10 +37,12 @@ MazeAssignment();
 
     
 
-
+// always displays the leaderBoard 
 
 leaderboardAlways();
 function lives(){
+
+    // add the 3 lives at the start of the game 
     let lives = 3;
 
     for (let i =0; i<lives; i++){
@@ -55,13 +54,14 @@ function lives(){
 lives();
 
 
-
+// the function that starts the game on start button 
 function play(event){
-    
+    // checks if a player collects a point 
     function pointCheck(){
         const points = document.querySelectorAll('.point');
         const postion = player.getBoundingClientRect()
-        const pointOpacity = 0.1;
+        const pointOpacity = 0.1; //sets the opacity of the point when collected
+        
         for (let i =0; i< points.length; i++) {
             let pointPostion = points[i].getBoundingClientRect()
             if (postion.right > pointPostion.left && postion.left < pointPostion.right && postion.bottom > pointPostion.top && postion.top < pointPostion.bottom){
@@ -77,10 +77,8 @@ function play(event){
                 }
                 
                 
-                
             }
             
-
         }
 
     }
@@ -95,12 +93,13 @@ function play(event){
         score = Number(pElement.innerText);
         score ++;
         pElement.innerText = score
-        
+        // when a player gets all the points on the level  go to a next level 
         if(num == totalPoints){
             
         
             
             enemyMoveEnable = false;
+
             setTimeout(() => {
                 clearMaze();
                 // allows the player to move once the level is clear
@@ -115,6 +114,7 @@ function play(event){
 
     // will display gameover message 
     function gameOver(){
+        
         clearInterval(Maininterval);
         enemyMoveEnable = false;
         let gameOver = document.querySelector('.menu h1');
@@ -123,6 +123,7 @@ function play(event){
         leaderBoard()
         gameOver.textContent = 'GAMEOVER!  RESTART?'
         gameOver.addEventListener('click',function(){
+            // reloads the screen 
             location.reload();
         });
 
@@ -131,12 +132,12 @@ function play(event){
     
 
  
- 
+    // checks if an enemy hits the player 
     
     function enemyCheck(){
         const enemys = document.querySelectorAll('.enemy');
     
-        
+        // gets the players postion 
         let playerPostion = player.getBoundingClientRect();
         for (let enemy of enemys) {
             
@@ -148,6 +149,7 @@ function play(event){
                     
                     canRemoveLife = false;
                     removeLife();
+                    // makes its so the player is invincable for 5 seconds 
                     setTimeout(() =>{
                         
                         canRemoveLife = true;
@@ -166,23 +168,21 @@ function play(event){
     
     
         
-        
     
-    
-    
-   
+//    removes a life on hit 
    function removeLife(){
         
            
         // checks to see if the player is dead 
         counter ++;
+        // adds the dead animation when the player loses all the lives 
         if (counter == hearts ){
             player.classList.add('dead')
             liveIcon.lastElementChild.remove();
             setTimeout(() => {
-                
+                // adds game over message when dead 
                 gameOver();
-                // clearInterval(enemyInterval);
+                
 
             }, 1500); 
         }
@@ -193,6 +193,7 @@ function play(event){
             if (liveIcon.lastElementChild) {
                 liveIcon.lastElementChild.remove();
             }
+            // makes it so the player cant move for 1.5 seconds after getting hit 
             aliveCheck =false;
             setTimeout(() => {
                 aliveCheck = true;
@@ -206,13 +207,16 @@ function play(event){
         
    }
 
-    
+
+//    player viarables 
     
     
     const player = document.querySelector('#player');
     const playerMouth = player.querySelector('.mouth');
     let playerTop = 0;
     let playerLeft = 0;
+
+    // calls the powerup function 
     
     powerups();
     
@@ -229,17 +233,19 @@ function play(event){
        
        
 
-        //arrow controls on click
+        //movement controls
         
-       
+       //down
         if((downPressed ) )  {
                 
+                // finds the next postion 
                 
                 let new_bottom = postion.bottom + 1;
 
                 let btml =document.elementFromPoint(postion.left, new_bottom);
                 let btmr =document.elementFromPoint(postion.right, new_bottom);
 
+                // only moves if the next square isnt a wall 
                 if(btml && btmr &&(btml.classList.contains('wall') == false && btmr.classList.contains('wall') == false) && aliveCheck){
                     playerTop++;
                     player.style.top = playerTop + 'px';
@@ -253,7 +259,7 @@ function play(event){
                     playerMouth.classList = 'down';
                 }
             }
-            
+        //up
         else if((upPressed  ) ) {
             
 
@@ -273,7 +279,7 @@ function play(event){
                 playerMouth.classList = 'up';
             }
         }
-        
+        //left
         else if((leftPressed ) ) {
             
             
@@ -297,7 +303,7 @@ function play(event){
             }
         
         }
-            
+        //right
         else if((rightPressed ) ) {
             
             
@@ -322,7 +328,7 @@ function play(event){
                     playerMouth.classList = 'right';
                 }
             }
-        //             
+                    
     }, 10);
 
 
@@ -339,13 +345,13 @@ function play(event){
             start.style.display = 'none';
             
             //arrow buttons functions
-            //down arrow
             
             
+            // makes the enemies start moving once the game has started 
             enemyMove();
             
                
-            
+            //down arrow
 
             function downArrow() {
         

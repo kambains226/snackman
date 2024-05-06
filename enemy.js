@@ -1,4 +1,4 @@
-
+// enemy global variables
 
 
 let enemyMoveEnable =true;
@@ -21,9 +21,11 @@ function enemyMove(){
             }
             enemy.interval = setInterval(function(){
                 
+
+                    // gets the enemy postion 
                 
                     let enemyPostion = enemy.getBoundingClientRect();
-                    
+                    // gets a randnum and that choses direction 
                     if (randnum === 1 && enemyMoveEnable){
                         //bottom
                         let newBottom = enemyPostion.bottom + 1;

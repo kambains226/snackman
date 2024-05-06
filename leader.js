@@ -4,13 +4,16 @@
 
 
 function leaderBoard() {
+    // gets the user to enter a name for the leaderBoard 
     let username = prompt('Enter your name to go on to the leaderboard');
     
+
+    // checks if the username is already in the localStorage
     username = username.trim();
     if (sameUsername(username)==false) {
         leaderBoard();
     }
-    
+    // checks if the username isnt empty
     if (username != '' ) {
         let points = {};
         
@@ -36,8 +39,7 @@ function leaderBoard() {
         // If there are more than 5 scores, remove the ones with the lowest scores
         
 
-        // Clear localStorage and add the top 5 scores
-        // localStorage.clear();
+        
         for (let i = 0; i < scores.length; i++) {
             localStorage.setItem(scores[i].username, scores[i].username + '......' + scores[i].score);
         }
