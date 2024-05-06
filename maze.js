@@ -132,7 +132,12 @@ function randomMaze(height, width,maze)  {
         const mazearray = Math.floor(Math.random() * numOfRows)
         const rowArray = Math.floor(Math.random() * rowLength)
 
-        if (maze[mazearray][rowArray] === 0 && !unplayable(maze,mazearray,rowArray)) {
+        if (maze[mazearray][rowArray] === 0  && 
+            // limits where the walls can spawn trying to prevent unplayable game
+            !(mazearray+1 < numOfRows && rowArray+1 < rowLength && maze[mazearray+1][rowArray+1] == 1) &&
+            !(mazearray-1 >= 0 && rowArray+1 < rowLength && maze[mazearray-1][rowArray+1] == 1) &&
+            !(mazearray+1 < numOfRows && rowArray-1 >= 0 && maze[mazearray+1][rowArray-1] == 1) &&
+            !(mazearray-1 >= 0 && rowArray-1 >= 0 && maze[mazearray-1][rowArray-1] == 1)) {
             maze[mazearray][rowArray] = 1
         } else {
             i--
@@ -153,51 +158,13 @@ const mazeDifficulty = () =>{
 
     
 }
-// limits where the walls can spawn trying to prevent unplayable game
-// function unplayable(array, column, row) {
-//     //&& (array[column][row+2] ==1 && array[column][row-2] ==1 && array[column +2][row] ==1 &&array[column -2][row] ==1 )
-//     if ((array[column-1][row] == 1 || array[column+1][row] == 1 || array[column][row-1] == 1 || array[column][row+1] == 1) &&(array[column-1][row-1] ==1 || array[column-1][row+1] ==1 || array[column+1][row-1] == 1 || array[column+1][row+1] ==1) ||  (array[column][row+2] ==1 && array[column][row-2] ==1 && array[column +2][row] ==1 &&array[column -2][row] ==1 ) ) {
-//         return true;
-//     }
-//     // still sometimes the maze cant be completed 
+
+
+
 
     
     
-    
-// }
-function unplayable(array, column, row) {
-    //atempting a Breadth first search algorithm
-    let visited = array.map(row => row.map(()=> false))
-    let queue = [{column: column, row: row}]
 
-    while (queue.length > 0) {
-
-        let current = queue.shift()
-        let {column, row} = current
-
-        if (column < 0 || column >= array.length || row < 0 || row >= array[0].length) {
-            continue
-        }
-
-        if (visited[column][row]) {
-            continue
-        }
-
-        visited[column][row] = true
-
-        if (array[column][row] === 1) {
-            return true
-        }
-
-        queue.push({column: column - 1, row: row})
-        queue.push({column: column + 1, row: row})
-        queue.push({column: column, row: row - 1})
-        queue.push({column: column, row: row + 1})
-    }
-    return false;
-    
-
-}
 // changes the width depending on what the width variable is set to
 // increase the width 
 function widthIncrease(width){
@@ -210,7 +177,7 @@ function widthIncrease(width){
     
 }
 
-
+// makes sure the width increase loads in 
 document.addEventListener('DOMContentLoaded', (event) => {
     widthIncrease(width);
     

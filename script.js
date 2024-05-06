@@ -66,7 +66,7 @@ function play(event){
             let pointPostion = points[i].getBoundingClientRect()
             if (postion.right > pointPostion.left && postion.left < pointPostion.right && postion.bottom > pointPostion.top && postion.top < pointPostion.bottom){
                 if (points[i].classList.contains('extraLife') && points[i].style.opacity !=pointOpacity ){
-                    // need to make it so it only adds one life 
+                   
                     addLife();
                 
             }
@@ -253,7 +253,7 @@ function play(event){
                     playerMouth.classList = 'down';
                 }
             }
-            // i need to fix a problem with not being able to move when colliding 
+            
         else if((upPressed  ) ) {
             
 
