@@ -7,11 +7,16 @@ function leaderBoard() {
     // gets the user to enter a name for the leaderBoard 
     let username = prompt('Enter your name to go on to the leaderboard');
     
+    if(username == null || username.trim == '') {
+        leaderBoard();
+        return;
+    }
 
     // checks if the username is already in the localStorage
     username = username.trim();
     if (sameUsername(username)==false) {
         leaderBoard();
+        return;
     }
     // checks if the username isnt empty
     if (username != '' ) {
@@ -87,12 +92,12 @@ function leaderBoard() {
 
     function sameUsername(username){
         for (let i = 0; i < localStorage.length; i++) {
+            console.log(localStorage.length )
             let key = localStorage.key(i);
+            console.log(localStorage.key(i));
             if (key === username){
                 return false;
             }
-            else{
-                return true;
-            }
+            
         }
     }

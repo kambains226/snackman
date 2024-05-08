@@ -122,8 +122,9 @@ function play(event){
         menu.style.display = 'flex';
         leaderBoard()
         gameOver.textContent = 'GAMEOVER!  RESTART?'
-        gameOver.addEventListener('click',function(){
+        gameOver.addEventListener('click',function(event){
             // reloads the screen 
+            event.stopPropagation();
             location.reload();
         });
 
@@ -177,6 +178,7 @@ function play(event){
         counter ++;
         // adds the dead animation when the player loses all the lives 
         if (counter == hearts ){
+            aliveCheck = false;
             player.classList.add('dead')
             liveIcon.lastElementChild.remove();
             setTimeout(() => {
