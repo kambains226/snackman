@@ -1,9 +1,9 @@
 // maze gloabl variables 
-let walls = 9;
+let walls = 6;
 let enemyCount = 1;
 
-let height =9;
-let width = 9;
+let height =8;
+let width = 8;
 
 let maze = [];
 
@@ -137,11 +137,12 @@ function randomMaze(height, width,maze)  {
     // walls inside maze not border  postion 
 
     for (let i =0; i < walls; i++) {
+        
         const mazearray = Math.floor(Math.random() * numOfRows)
         const rowArray = Math.floor(Math.random() * rowLength)
 
         if (maze[mazearray][rowArray] === 0  && 
-            // limits where the walls can spawn trying to prevent unplayable game
+            // limits where the walls can spawn to prevent an unplayable game
             !(mazearray+1 < numOfRows && rowArray+1 < rowLength && maze[mazearray+1][rowArray+1] == 1) &&
             !(mazearray-1 >= 0 && rowArray+1 < rowLength && maze[mazearray-1][rowArray+1] == 1) &&
             !(mazearray+1 < numOfRows && rowArray-1 >= 0 && maze[mazearray+1][rowArray-1] == 1) &&
