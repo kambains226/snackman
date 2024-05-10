@@ -220,7 +220,7 @@ function powerups(){
                             // adds the extra life class when collected 
                         
                             points[x].classList.add('extraLife')
-                            console.log(points[x])
+                            
                             powerupEnable=2;
 
                         
