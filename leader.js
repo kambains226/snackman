@@ -91,9 +91,9 @@ function leaderBoard() {
     //function for checking if username is the same 
     function sameUsername(username){
         for (let i = 0; i < localStorage.length; i++) {
-            console.log(localStorage.length )
+            
             let key = localStorage.key(i);
-            console.log(localStorage.key(i));
+            
             if (key === username){
                 return false;
             }
