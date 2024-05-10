@@ -1,7 +1,6 @@
 //this js file is responsible for the leaderborad logic 
+
 // this function creats an object with a userame and score to organise localStorage with the scores
-
-
 
 function leaderBoard() {
     // gets the user to enter a name for the leaderBoard 
@@ -89,7 +88,7 @@ function leaderBoard() {
 
         
     }
-
+    //function for checking if username is the same 
     function sameUsername(username){
         for (let i = 0; i < localStorage.length; i++) {
             console.log(localStorage.length )
