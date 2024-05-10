@@ -1,4 +1,4 @@
-
+//this is the main js file that is responisble for most of the functionality of the game 
 
 // global variables 
 //movement key checks

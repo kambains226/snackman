@@ -1,3 +1,6 @@
+//this js file is responsible for the enemy logic 
+
+
 // enemy global variables
 
 

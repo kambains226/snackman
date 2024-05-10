@@ -1,4 +1,4 @@
-
+//this js file is responsible for the leaderborad logic 
 // this function creats an object with a userame and score to organise localStorage with the scores
 
 

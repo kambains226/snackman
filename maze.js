@@ -1,3 +1,6 @@
+
+//this js file is responsible for the maze logic
+
 // maze gloabl variables 
 let walls = 6;
 let enemyCount = 1;
@@ -169,7 +172,6 @@ const mazeDifficulty = () =>{
 
     
 }
-
 
 
 
